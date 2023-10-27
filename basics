@@ -1,0 +1,883 @@
+GIT:
+
+ściągnij stan aktualny repo z origin/master
+git fetch && git rebase origin/master
+
+przyjmij wersję pliku z bazy podczas rebase:
+git checkout --ours -- nazwa_pliku
+jeśli patch zrobi się pusty, to może zostać pominięty
+
+wypchij aktualną gałąź do analogicznej w źródle:
+git push -u origin $(basename $(git symbolic-ref HEAD))
+
+wypchnij tagi:
+git push --tags
+
+wyślij commit do review na gerricie:
+git push origin HEAD:refs/for/master
+
+dołącz zmiany do commita:
+git commit -a --amend
+git push origin HEAD:refs/for/master
+(zmiana commit message dotyczy całego commita)
+
+zmiana opisu ostatniego commita:
+git commit --amend -m "New and correct message"
+
+ręczne poprawianie ostatniego commita:
+git reset HEAD^
+<wyedytuj pliki>
+git add <files>
+git commit
+<przeklej komentarz i Id>
+git push
+git push origin HEAD:refs/for/master
+
+dodanie części zmian do commita:
+git add -p <file>
+interaktywnie: y-yes, n-no, s-split, K-previous, ?-help (more commands)
+
+popraw zamendowanie na osobny commit:
+git reset --soft HEAD@{1}
+git commit -C HEAD@{1}
+
+aktualny stan lokalnego repo:
+git status
+
+porównaj zmiany pliku:
+    index = staging area
+    working directory = files on disk
+    HEAD = aktualny stan repo
+index vs working directory: git diff ./filename
+HEAD vs working directory: git diff HEAD filename
+HEAD vs index: git diff --cached filename
+aktualna gałąź vs inna (pojedynczy plik): git diff other_branch -- file_path
+
+przejrzyj aktualne gałęzie:
+git branch
+
+utwórz gałąź i na nią zrzuć aktualny stan:
+git checkout -b new_branch_name
+
+zmień nazwę brancha:
+git branch -m <newname>
+git branch -m <oldname> <newname>
+
+porzuć zmiany pliku od ostatniego commita:
+git checkout filename
+
+skopiuj stan pliku z innej gałęzi (rewizji itp.):
+git checkout <git-revision> -- <file-to-checkout>
+
+usuń plik z repozytorium, ale zostaw na dysku jako nieśledzony:
+git rm --cached filename
+
+przestań uaktualniać lokalne zmiany pliku
+git update-index --assume-unchanged [path]
+
+obejrzyj ostatnie commity: 
+git log
+git log --follow -- <filename>
+git log --graph --all
+
+obejrzyj zmiany konkretnej linii:
+git log -L<start>,<stop>:<file_path>
+
+zapisz na boku:
+git stash [save/pop/drop/show/list]
+
+git reset HEAD file
+
+git diff HEAD^
+
+użyj gitowego diffa do dowolnych plików:
+git diff --no-index
+
+usuń nieśledzone pliki:
+git clean
+-n # dry run
+-i # interactive
+-f # force (yes, do it!)
+-d # directories
+-X # only ignored files
+
+przywróć stan wszystkiego z danego momentu:
+git reset --hard
+
+przejdź na bok, ściągnij świeżego mastera i przejdź na niego:
+git branch tmp && git checkout tmp && git branch -D master && git fetch && git checkout master && git branch -D tmp
+
+ściągnij repo i odtwórz je w folderze:
+git clone ssh://bmroczek@siekiera.mimuw.edu.pl:29418/nazwa_repo nazawa_folderu
+
+ustaw gałąź na śledzenie gałęzi innego repo:
+git remote add <name_for_repo_reference> <address_of_repo_to_track>
+git remote -v # to verify
+git fetch --all
+git branch (--all) # to see all possible branches
+git checkout --track <full_name_of_the_remote_branch> # sets up new branch of the same name as remote one, tracks the remote branch
+
+Przestań śledzić branch (usuwa tylko lokalne śledzenie, nie modyfikuje źródła):
+git branch -d -r origin/<remote branch name>
+
+Wywołaj garbage collector (np. po usunięciu gałęzi i/lub remote-tracking brancha):
+git reflog expire --expire-unreachable=all --all
+git gc --prune=all
+
+Uaktualnij listę zdalnych gałęzi:
+git fetch --prune
+
+przełącz repo z https na ssh:
+stwórz, zapisz klucze ssh
+git remote -v # potwierdź, że jest na https
+git remote set-url origin git@gitlab.com:... # ustaw adres z protokołem ssh
+git remote -v # potwierdź, że nastąpiła zmiana
+git fetch # sprawdź, że działa (za pierwszym razem zaakceptuj klucze)
+
+sprawdź naniesione zmiany podczas merge'a:
+git diff HEAD <file_name>
+
+sprawdź, z czym się merge'ujesz:
+git log MERGE_HEAD
+
+cofnij rebase:
+git checkout -b backup # na wszelki wypadek
+git reflog # znajdź stan sprzed rebase'u
+git checkout <branch_name>
+git reset --hard HEAD@{n} # wartość n podejrzana w reflogu
+git status # potwierdzenie, że wszystko poszło ok
+
+lokalny gitignore:
+wpisy w pliku .git/info/exclude
+
+używaj nbdime do porównywania notebooków:
+pip list | grep nbdime # sprawdź, że w środowisku jest mbdime
+nbdime config-git --enable --global
+	to dopisuje w pliku ~/.config/git/attributes:
+		*.ipynb diff=jupyternotebook
+		*.ipynb merge=jupyternotebook
+	oraz w ~/.gitconfig:
+		[diff "jupyternotebook"]
+        		command = git-nbdiffdriver diff # warto tutaj dodać --sources
+		[merge "jupyternotebook"]
+        		driver = git-nbmergedriver merge %O %A %B %L %P
+        		name = jupyter notebook merge driver
+		[difftool "nbdime"]
+        		cmd = git-nbdifftool diff \"$LOCAL\" \"$REMOTE\" \"$BASE\"
+		[difftool]
+        		prompt = false
+		[mergetool "nbdime"]
+        		cmd = git-nbmergetool merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+potwierdź, że działa:
+git config diff.jupyternotebook.command
+more info: https://nbdime.readthedocs.io/en/latest/vcs.html#git-integration
+
+KONSOLA:
+
+copy, paste:
+ctrl+shift+c, ctrl+shift+v
+
+wyszukaj w historii:
+ctrl+r # wielokrotności pokażą coraz starsze
+anuluj:
+ctrl+g
+wróć do nowszego:
+ctrl+s
+
+zrestartuj network-menagera:
+sudo systemctl restart network-manager.service
+
+zamontuj pliki przez ssh do lokalnego folderu:
+sshfs bmroczek@motyka.mimuw.edu.pl:/home/bmroczek ./motyka
+odmontuj:
+umount ./motyka
+
+klucze ssh:
+wygeneruj:
+ssh-keygen
+skopiuj:
+ssh-copy-id user@host
+potrzebuje prawidłowych uprawnień ~ oraz ~/.ssh
+potrzebuje klonowania repo przez ssh, nie http
+
+Bad owner or permissions on ~/.ssh/config:
+chmod 600 ~/.ssh/config
+chown $USER ~/.ssh/config
+
+prześlij plik przez ssh:
+scp username@from_host:file.txt /local/directory/
+scp file.txt username@to_host:/remote/directory/
+scp -r username@from_host:/remote/directory/ /local/directory/
+scp -r /local/directory/ username@to_host:/remote/directory/
+scp username@from_host:/remote/directory/file.txt username@to_host:/remote/directory/
+
+skopiuj potrzebne hooks (do nowego repo):
+cp docker/git-hooks/* <projectDir>/.git/hooks
+scp -p -P 29418 <login>@siekiera.mimuw.edu.pl:hooks/commit-msg <projectDir>/.git/hooks/
+
+sprawdź, czy biblioteka pythonowa jest zainstalowana (tutaj redis):
+pip list | grep redis
+
+sprawdź, gdzie są pliki konkretnego liba:
+    czasem warto sprawdzić autorstwo tych plików oraz czy nie znajdują się w local, czyli
+    poza folderem środowiska
+w pythonie:
+    import pakiet
+    print(pakiet.__path__)
+    print(pakiet.__file__)
+pip show <pakiet>
+
+
+zezwól na zmiany w folderze/pliku przez ipython:
+chown bmroczek:approx filename/foldername
+
+popraw właścicieli:
+chown -R bmroczek:approx . && chown -R bmroczek:approx * && chmod g+s .
+tylko jeśli był konkretny:
+sudo chown -R --from pwygocki bmroczek .
+zmień tylko foldery:
+find /path/to/base/dir -type d -exec chmod g+s {} \;
+zmień tylko pliki:
+find /path/to/base/dir -type f -exec chmod 644 {} \;
+
+zawansowane uprawnienia:
+JUPYTER_USER="jupyter-$USER"
+MAIN_FOLDER="projects/" # seen also /srv/workspace/$USER/
+setfacl -R  -d -m u:$USER:rwX $MAIN_FOLDER # default setting
+setfacl -R  -m u:$USER:rwX $MAIN_FOLDER
+setfacl -R  -d -m u:$JUPYTER_USER:rwX $MAIN_FOLDER
+setfacl -R  -m u:$JUPYTER_USER:rwX $MAIN_FOLDER
+
+setfacl -m u:$JUPYTER_USER:--X /home/$USER # make scripts executable for the other user
+
+sprawdź zaawansowane uprawnienia:
+getfacl FILE_OR_FOLDER
+
+sprawdź grupy użytkownika:
+id # zalogowanego użytkownika
+id user_name
+sprawdź członków grupy:
+getent group group_name
+# jeśli id zwraca krótszą listę grup, to przelogowanie się tego użutkownika pomoże; w przypadku jupyterhuba awrto zrestartować serwer
+
+nadaj sudo użytkownikowi:
+sudo usermod -a -G sudo <user>
+
+restart hasła użytkownika:
+sudo passwd <user>
+
+utwórz symlink:
+ln -s /folderorfile/link/will/point/to /name/of/the/link
+usuń jak zwykły plik:
+rm /path/of/symlink
+
+wylistuj tylko foldery:
+ls -d */
+
+wylistuj tylko ukryte pliki:
+ls .[!.]?*
+
+wylistuj tylko puste pliki:
+find . -name '*.txt' -size 0
+
+wylistuj pliki odfiltrowane po dacie:
+https://stackoverflow.com/questions/158044/how-to-use-find-to-search-for-files-created-on-a-specific-date
+find FOLDER_NAME -ctime TIME_PERIOD
+Examples of TIME_PERIOD:
+    More than 30 days ago: -ctime +30
+    Less than 30 days ago: -ctime -30
+    Exactly 30 days ago: -ctime 30
+
+policz pliki w folderze (nierekurencyjnie):
+ls | wc -l
+
+struktura plików (nie rozwijaj dla folderów z >=N elementami, tylko foldery):
+tree --filelimit N -d FOLDER_TO_LIST
+
+wylistuj rekurencyjnie wszystkie pliki o nazwie zgodnej z regexem:
+find . -name '*Untitled*' -print
+
+usuń wszystkie pliki *orig (także w podfolderach):
+find . -name \*.orig -delete
+
+wylistuj moje foldery:
+find . -mindepth 1 -maxdepth 1 -type d -user bmroczek
+
+usuń znalezione pliki (foldery, pytaj o potwierdzenie):
+find ... | xargs rm (-r -i)
+
+przenieś znalezione pliki:
+find /path/to/search/ -type f -name "glob-to-find-files" | xargs cp -t /target/path/
+
+usuń puste foldery (rekurencyjnie):
+find . -name ".svn" -type d -empty -delete
+
+spisz checksumy wszystkich plików w folderze rekurencyjnie:
+find . -type f -exec md5sum '{}' >> md5check.txt \;
+porównaj te pliki:
+import pandas as pd
+source = pd.read_csv("md5check_source.txt", names=["sha", "file"], sep="  ")
+target = pd.read_csv("md5check_target.txt", names=["sha", "file"], sep="  ")
+comp = source.merge(target, on="file", suffixes=["_source", "_target"], validate="1:1")
+comp[comp.sha_source != comp.sha_target]
+
+obciążenie serwera:
+htop
+
+zużycie gpu:
+(watch) nvidia-smi
+gpu_usage # skrypt mim-owy?
+
+disk usage:
+du (-hs --max-depth=1)
+du -a -h --max-depth=1 | sort -hr
+
+zajętość dysku:
+df -h
+
+ściąganie pliku:
+wget adres.do.pliku
+
+temperatura:
+sensors
+uaktualniaj wynik:
+watch sensors
+
+wypisz wersję systemu:
+cat /etc/*-release
+
+znajdź proces:
+ps aux | grep (...)
+pgrep -f -a 'ross'
+
+wypisz proces wg pid-a:
+ps -p <pid> -lF ww
+
+znajdź string w systemie plików:
+grep -r --include="*.json" "text to find" .
+
+ustaw folder wykonania skryptu pythonowego:
+PYTHONPATH=.
+export PYTHONPATH
+
+skompresuj listę plików zipem:
+zip output_name first_file, second_file, third_file
+skompresuj folder, bez info o postępie:
+zip -r -q output_name directory_to_zip/
+można dodać więcej folderów naraz, tak jak wiele plików
+ustaw poziom kompresji (wyższe trwają dłużej, dają mniejsze outputy; wartość z zakresu 0-9):
+zip -8 output_name file_to_zip
+rozpakuj zipa:
+unzip (-q) zip_file.zip (-d ./target/directory/path)
+podejrzyj zawartość zipa:
+unzip -l source_code.zip | less
+rozpakuj tar.gz:
+tar -xf archive.tar.gz
+
+CONDA:
+conda activate ENV_NAME
+conda env list
+conda create --name CLONE_NAME --clone ENV_NAME
+conda create --name ENV_NAME python=3.9
+conda env remove -n ENV_NAME
+
+dodanie do środowiska condowego zmiennych środowiskowych:
+conda activate <my_env>
+conda env config vars set ENV_VAR_NAME=env_var_value
+conda env config vars list # wypisanie ustawionych zmiennych
+jeśli coś pójdzie bardzo nie tak, to można próbować edytować plik ${CONDA_PREFIX}/conda-meta/state
+
+udostępnienie jupyterowemu użytkownikowi środowiska:
+1. Jako użytkownik jupyter-bmroczek utwórz plik /home/jupyter-bmroczek/.condarc z:
+envs_dirs:
+  - /home/bmroczek/.conda/envs
+2. Jako użytkownik bmroczek upewnij się, że ipykernel jest zainstalowany:
+conda activate <środowisko_condowe>
+pip list | grep ipykernel
+3. Jako użytkownik jupyter-bmroczek sprawdź, że conda widzi nowe środowisko:
+conda env list
+(uwaga: użytkownik jupyter-bmroczek nie powinien instalować niczego w tych środowiskach, bo i tak nie działa, ale twierdzi, że działa?) – chyba brakowało uprawnień, dlatego był read-only
+
+wyczyszczenie nieużywanych plików:
+conda clean --all
+conda clean --force-pkgs-dirs
+source: https://stackoverflow.com/a/64005961
+
+sprawdzenie ustawień condy:
+conda config --show
+
+
+DOCKER:
+
+utwórz obraz:
+docker build -t <nazwa obrazu> <ścieżka folderu z Docerfilem>
+# docker oczekuje, że wszystkie zasoby wykorzystywane w Dockerfile'u, np. kopiowane pliki
+# znajdują się w tym folderze. Najprościej wszystko tam kopiować, podobna da się robić też
+# hard-linki (soft-linki o targecie spoza katalogu nie działają)
+
+uruchom kontener:
+docker run -p 5000:5000 -d <image_name>
+# -p to przekazanie portu (zewnętrzny:wewnętrzny)
+# -d, --detach uruchom w tle, nie wchodź do środka
+
+docker run --rm -it --entrypoint /bin/bash <nazwa obrazu>
+# uruchom obraz interaktywnie z shellem
+# --rm usuń obraz po zamknięciu
+# -i, --interactive otwórz STDIN w dokerze
+# -t, --tty przedstaw wejście jako terminal
+# source: https://stackoverflow.com/q/30137135
+# entrypoint: jaki główny proces ma być uruchomiony
+
+wylistuj kontenery:
+docker ps -a --no-trunc  # domyślnie działające, -a = wszystkie
+# --no-trunc nie skracaj zawartości kolumn, przydaje się przy sprawdzaniu komendy
+
+wylistuj obrazy:
+docker image list
+
+usuń obraz:
+docker rmi <id obrazu>
+
+usuń kontener:
+docker rm <nazwa kontenera>
+
+zatrzymaj kontener
+docker kill <nazwa kontenera> # wysyła SIGKILL
+docker stop <nazwa kontenera> # wysyła SIGTERM, czeka trochę, wysyła SIGKILL
+
+zatrzymaj tylko wybrane (z dużą możliwością filtrowania):
+docker kill $(docker ps -a -q --filter ancestor=hello_server)
+
+analiza kontenera:
+docker inspect <nazwa kontenera> # wypisz szczegóły kontenera
+docker logs <nazwa kontenera> # # sprawdź logi kontenera
+
+wejdź do kontenera:
+docker exec -it <container_id> sh  # bash jest wygodniejszy, o ile jest w obrazie
+
+wyślij jsona do biegającego serwera flaskowego:
+curl -i -H "Content-Type: application/json" -X POST -d '{"userId":"1", "username": "fizz aaaa"}' http://localhost:5000/post_test
+
+
+do liczenia z konsoli:
+source activate mimsolutions
+
+przekieruj strumień błędów do less:
+make 2>&1 | less
+
+schowaj wszystkie komunikaty przy uruchamianiu z konsoli:
+mupdf file.pdf 2>/dev/null &
+
+do blokady ekranu:
+slock
+i3lock -c 000000
+
+screenshot (print screen):
+ScreenGrab
+
+domyślne gui file browser, document viewer:
+pcmanfm (nautilius na Ubuntu), evince
+
+do wizualizacji jsonów:
+jsongrid
+
+pulse audio volume control:
+pavucontrol
+
+zaloguj się jako user:
+su - user
+
+uruchom serwer jupitera:
+jupyter notebook --notebook-dir /home/
+(chcesz to zrobić w tmuxie, żeby móc się odłączyć)
+
+znalezienie tokena jupytera:
+jupyter notebook list (tylko z konta usera mim)
+
+sprawdź, co zajmuje port xyz:
+lsof -i tcp:xyz
+
+przekaż porty:
+# stawia połączenie ssh, które jednocześnie nadpisuje localhost:9999 przez zdalny port 9999
+ssh -L 16007:127.0.0.1:16007 -L 9999:127.0.0.1:9999 USER_NAME@SERVER_NAME
+
+autocomplete nie działa:
+podbić wersję ipython do conajmniej 7.20.0
+
+po ustawieniu jupitera jako service systemd:
+Adam: uruchomiłem mlflow i jupytera jasko serwisy systemd. Status można spradzić wywołując (nie trzeba sudo)
+service NAZWA status
+są jeszcze polecenia start, stop i restart - te wymagają sudo
+
+taki serwis konfiguruje się tworząc plik w /etc/systemd/system/NAZWA.service (np. mlflow w /etc/systemd/system/mlflow.service )
+po każdej zmianie w tym pliku trzeba zrobić sudo systemctl daemon-reload
+no i sudo service NAZWA restart
+
+konwersja .ipynb do .py:
+jupyter nbconvert --to script --no-prompt Untitled.ipynb --output "path/to/output/file_name" # .py added blindly by the converter
+konwersja .ipymb do .html:
+jupyter nbconvert --to html --no-prompt --no-input noteebuk/to/convert.ipynb --output "path/to/output/file_name" # .html added blindly by the converter
+
+pandas wyświetlenie całej tabali:
+with (pd.option_context(
+    'display.max_rows', None,
+    'display.max_columns', None,
+    'display.max_colwidth', None,
+    'display.max_seq_items', None,
+)):
+    display(df)
+
+pandas podejrzenie ustawień wyświetlania:
+pd.describe_option('display')
+
+schowanie warningów w notebooku:
+with warnings.catch_warnings(record=True) as caught_warnings:
+
+formatowanie wypisywania liczb:
+f"{i:03d}"  # wypisz na 3 cyfrach inta d
+f"{i:.3f}"  # wypisz 3 cyfry po przecinku
+
+Time profiler for python:
+from pyinstrument import Profiler
+from pyinstrument.renderers import HTMLRenderer
+profiler = Profiler()
+profiler.start()
+# slow code goes here
+profiler.stop()
+profiler_session = profiler.last_session
+HTMLRenderer().open_in_browser(profiler_session, output_filename="./profiler_output.html")
+
+TMUX:
+odpal:
+tmux
+odłącz się:
+ctr+b, d
+podłącz się:
+tmux a
+Nowe okno:
+ctrl + b, c
+przejdź do n-tego okna:
+ctrl + b, <n>
+przejdź do następnego okna:
+ctrl + b, n
+scrolluj okno:
+ctrl + b, [
+wybierz okno z listy:
+ctrl + b, w
+zamknij aktualne okno:
+ctrl + b, x
+copy-paste między oknami:
+    tryb zaznaczania: ctrl + b, [
+    zacznij zaznaczać: ctrl + space
+    skopiuj: ctrl + w
+    wklej: ctrl + b, ]
+zmień nazwę okna:
+ctrl + b; ,
+zmień numer okna:
+ctrl + b; .
+help:
+ctrl + b, ?
+interactive command prompt:
+ctrl + b, :
+wyróżnij aktywne okno na statusie:
+set-window-option -g window-status-current-style bg=white
+
+odśwież stałą potrzebną do autoruzacji ssh (ściągnięcie repo gitowego):
+eval export $(tmux show-env | grep SSH_AUTH_SOCK)
+
+wylistuj sesje:
+tmux list-sessions
+
+przestaw pane do innego okna:
+ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
+<przejdź do targetu>
+ctrl + b, :join-pane
+
+VIM:
+usuń (linię/słowo/resztę linii): d (dd/daw/D)
+skopiuj: y
+skopiuj zawartość vimowego schowka do schowka systemowego:
+:call system('xclip -selection clipboard', @0)   
+wklej w trybie insert:
+ctrl+r, "
+wklej tak, żeby działało w "." dla powtórzeń (np. w "c" (change)):
+ctr+r, ctrl+p, "
+wklej ze schowka 0:
+"0p
+wyświetl zawartość schowków:
+:reg (lub :dis)
+wykonaj jedno polecenie w trybie insert:
+ctrl+o
+zreidentuj: =
+(linię: podwójnie)
+tryb wizualnego zaznaczania: v
+zaznacz po wklejeniu wklejony tekst: v']
+wyłącz autoindent do wklejenia wielu linii ze schowka: :set paste
+po użyciu przywróć autoindent: :set nopaste
+
+wyszukaj: /
+wyszukaj słowo pod kursorem: *
+przestań podświetlać: noh
+włącz podświetlenie wyszukania: set hlsearch
+wyszukaj wybrane przez visual: yq/gvp
+
+zmień zaznaczenie na małe litery: u
+zmień zaznaczenie na wielkie litery: U
+
+wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc 
+    zakres: "%" - cały plik
+            "3,10" - linie 3-10 włącznie
+            ".,$" - od linii z kursorem do końca pliku
+            "1,+1" - od początku do następnej linii za kursorem
+            "*" - ostatnio użyty visual; żeby wstawić aktywne zaznaczenie do zakresu - ":"
+    odwołanie do grup wychwytujących  regexie:
+        :s/this is \([a-z]*\) example\(.*$\)/\1d this is output\2/
+
+przejdź do (definicji, n-tej linii): g (gd, n gg)
+wróć do poprzedniego miejsca: ctrl+o
+    następne: ctrl+i
+przejdź do wiersza y, kolumny x:
+yGx|
+:norm yGx|
+przejdź do pasującego nawiasu: %
+
+otwórz plik (dodaj do bufora): e <path/to/file>
+nowy bufor: new
+następny/poprzedni zbuforowany plik: bn/bp
+zamknij bieżący bufor: bd
+szybki podgląd buforów: :ls
+
+uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
+    wszystkie pliki w folderze: vim -p $(ls .)
+    lub używając globa: vim -p *.py
+otwórz plik w nowej zakładce: :tabe <path_to_file>
+następna zakładka: Ctrl + PgDwn lub gt
+poprzednia zakładka: Ctr + PgUp lub gT
+przesuń zakładkę: :tabm [nr]
+przejdź do n-tej zakładki: <n> gt
+
+polecenie okna ctrl-w
+    o (aktualny bufor ma być jedynym widocznym)
+
+wypisz nazwę pliku: echo @%
+alternatywnie (prościej): ctrl + g
+permanentnie (a właściwie to wyświetlaj status, domyślnie już tam nazwa jest; patrz: statusline)
+    :set laststatus=2
+skopiuj nazwę pliku do domyślnego schowka:
+    :let @"=@%
+
+wyczyść spacje na końcu linii:
+:%s/\s\+$//e
+    :%s to run :substitute over the range %, which is the entire buffer.
+    \s to match all whitespace characters.
+    \+ to match 1 or more of them.
+    $ to anchor at the end of the line.
+    The e flag to not give an error if there is no match (i.e. the file is already without trailing whitespace).
+
+wykomentuj blok kodu:
+ctrl + v (visiual block)
+shift + i (insert on left side)
+# (text to insert, it will be inserted visibly only on the first line)
+esc (end inserting)
+
+Usuń komentarz:
+ctrl + v; x
+
+zaznacz blok wierszy:
+shift + v
+
+Dodaj do końca paru wierszy:
+ctrl + v; $A
+
+podczas tworzenia zaznaczenia:
+zaznacz do końca linii (także w bloku): $
+przejdź do drugiego końca zaznaczenia: o
+
+autocompletion: ctrl + n / ctrl + p
+autocomplete file name: ctrl + x, ctrl + f
+indent current line forward, backwards: ctrl + t, ctrl + d
+
+reload .vimrc: :so $MYVIMRC  # full command: source
+
+display cursor position:
+set ruler
+
+ustaw język kolorowania składni (np. python):
+:set ft=sql
+
+pokaż białe znaki:
+set list
+schowaj:
+set nolist
+pokazuj także spacje:
+set lcs+=space:·
+
+użyj pylinta
+po odpowiednim zmodyfikowaniu .vimrc
+:make # odpala pylint
+:cc # aktualny komentarz
+:cn # następny komentarz
+:cp # poprzedni komentarz
+
+powtórz edycję
+.
+
+powtórz komendę:
+@:
+(za następnym razem wystarczy @@)
+
+nawigacja - do opisania:
+[[, ]], [m, ]m, {, }
+
+podejrzyj wartość ustawienia:
+:set <option>?
+
+nawigacja po helpie:
+przeskocz do tagu: ctrl-]
+wróć po skoku: ctrl-o
+help do poszczególnego skrótu (przykład): i_ctrl-w
+dostępne prefiksy:
+    brak: komenda w normal mode
+    i_: komenda w trybie insert
+    v_: komenda w trybie insert
+    :: komenda wykonywalna (np. :tabedit)
+    help dla ustawienia: help 'paste'
+
+ATOM:
+odkryj/ukryj podgląd plików:
+ctrl+\
+nowe podokno:
+ctrl+k, <arrow>
+przejdź do podokna:
+ctrl+k, ctrl+<arrow>;
+zwiń kod do głębokości n:
+ctrl+k, ctrl+<n>
+(od)komentuj:
+ctrl+/
+postaw/zdejmij breakpoint:
+F9
+zdejmij wszystkie breakpointy:
+ctrl+shift+F9
+zacznij debug:
+F5
+otwórz pik:
+ctrl+p
+wyszukaj polecenie:
+ctrl+shift+p
+nowy kursor:
+ctrl+mouseclick
+alt+shift+<up/down arrow>
+nowy kursor dla następnego wystąpienia ciągu:
+ctrl+d
+
+SUBLIME:
+menu folderu:
+ctrl+k, ctrl+b
+nowe podokno:
+ctrl+k, ctrl+↑
+zamknij podokno:
+ctrl+k, ctrl+↓
+przejdź do okna nr n:
+ctr+<n>
+(w tym boczne menu ma nr 0)
+wyjdź z bocznego menu:
+esc
+ogólne wyszukaj plik:
+ctrl+p
+wyszukaj polecenie:
+ctrl+shift+p
+przejdź do nawiasu od pary:
+ctrl+m
+
+ZOOM:
+fix lack of opacity:
+xcompmgr -c -l0 -t0 -r0 -o.00
+
+focus follows mouse:
+gsettings set org.gnome.desktop.wm.preferences focus-mode 'mouse'
+default: 'click'
+
+Unfreeze console after ctrl+s: ctrl+q
+
+BASH:
+
+zamknij sesję nie zapisując historii komend: kill -9 $$
+source: https://stackoverflow.com/a/49360507
+
+zdefiniuj tablicę:
+a=("perwszy element" "drugi element" "ostatni element")
+
+wstaw wszystkie opcje:
+ls filename.{first_option,txt,"one more"}
+
+przeiteruj się przez tablicę:
+for e in "${a[@]}"; do
+    echo "$e"
+done
+
+przeiteruj się po plikach:
+for f in ./*; do unzip "$f"; done
+
+podstaw (jedno) wystąpienie w zmiennej $x:
+${x/find/replace}
+
+bashowe domyślne kolorowanie (ustaw zmienną według outputu; można wynik dopisać do ~/.bashrc):
+dircolors -b
+
+sprawdź stan baterii:
+upower -i /org/freedesktop/UPower/devices/battery_BAT0
+
+update software:
+update-manager
+
+snap update of firefox:
+snap refresh --list # sprawdź, czy są jakieś aktualizacje
+sudo snap refresh firefox # instalacja nowszej wersji
+
+skrypt do ogarniania workspace'ów:
+workspaces_manager.py <save|restore|to_main>
+Powinien mieszkać w ~/bin
+echo $PATH powinno potwierdzić, że ten folder jest w ścieżce. Jeśli go nie ma
+    (np. jest świeżo utworzony), ~/.profile powinien go dodawać.
+    Do odświeżenia: source ~/.profile
+
+ustaw domyślny ekran (przydatne dla i3bar icon tray):
+    (nazwy do podejrzenia: xrandr --listmonitors)
+xrandr --output eDP --primary
+xrandr --output HDMI-A-0 --primary
+dołącz monitor po prawej:
+xrandr --output HDMI-A-0 --auto --right-of eDP                                   
+
+SageMaker:
+pluginy do jupyterlaba są tutaj:
+/opt/conda/share/jupyter/lab/extensions
+prawdopodobnie warto rozpakować amzn-sagemaker-ui-3.16.4.tgz i zajrzeć do środka
+rozpakowane są tu:
+/opt/conda/lib/python3.7/site-packages/
+tutaj:
+/opt/conda/lib/python3.7/site-packages/sagemaker_nb2kg/constants.py
+jest ciekawa stała DEFAULT_CPU_INSTANCE_TYPE = "ml.t3.medium"
+
+jupyter lab build
+RuntimeError: npm dependencies failed to install
+
+
+KONFIGURACJE
+
+jupyter notebook - używaj bezpośredniego adresu przy uruchamianiu:
+jupyter notebook --generate-config # generate config file, output shows the path (~/.jupyter/jupyter_notebook_config.py)
+# in the file change setting (do not leave trailing space just in case):
+c.NotebookApp.use_redirect_file = False
+
+ustaw permanentnie touchpad na touch to click:
+# w folderze /etc/X11/xorg.conf.d utwórz plik 10-libinput.conf (liczba decyduje tylko o priorytecie)
+# w pliku zawartość:
+# Identifier - dowolny opis
+# MatchProduct - właśwy wpis z outputu xinput --list
+# można sprawdzić wszystkie ustawienia za pomocą
+# xinput --list-props "DELL0A78:00 27C6:0D42 Touchpad"
+Section "InputClass"
+Identifier "Dell Touchpad"
+MatchProduct "DELL0A78:00 27C6:0D42 Touchpad"
+Option "Tapping" "true"
+EndSection

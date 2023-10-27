@@ -1,0 +1,58 @@
+{
+    // notebook:move-cell-up
+    // notebook:move-cell-down
+    // notebook:clear-cell-output
+    // notebook:change-kernel
+    // notebook:hide-cell-outputs
+    // notebook:show-cell-outputs
+    "shortcuts": [
+        {
+            "args": {},
+            "command": "notebook:move-cell-up",
+            "keys": [
+                "Ctrl ArrowUp"
+            ],
+            "selector": "body"
+        },
+        {
+            "args": {},
+            "command": "notebook:move-cell-down",
+            "keys": [
+                "Ctrl ArrowDown"
+            ],
+            "selector": "body"
+        },
+        {
+            "args": {},
+            "command": "notebook:clear-cell-output",
+            "keys": [
+                "Ctrl X"
+            ],
+            "selector": "body"
+        },
+        {
+            "args": {},
+            "command": "notebook:change-kernel",
+            "keys": [
+                "Ctrl K"
+            ],
+            "selector": "body"
+        },
+        {
+            "args": {},
+            "command": "notebook:hide-cell-outputs",
+            "keys": [
+                "Ctrl Shift ArrowUp"
+            ],
+            "selector": "body"
+        },
+        {
+            "args": {},
+            "command": "notebook:show-cell-outputs",
+            "keys": [
+                "Ctrl Shift ArrowDown"
+            ],
+            "selector": "body"
+        }
+    ]
+}
