@@ -172,6 +172,9 @@ potwierdź, że działa:
 git config diff.jupyternotebook.command
 more info: https://nbdime.readthedocs.io/en/latest/vcs.html#git-integration
 
+użyj domyślnego diffa:
+git diff --no-ext-diff
+
 KONSOLA:
 
 copy, paste:
