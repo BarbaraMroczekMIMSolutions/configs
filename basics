@@ -173,7 +173,13 @@ git config diff.jupyternotebook.command
 more info: https://nbdime.readthedocs.io/en/latest/vcs.html#git-integration
 
 użyj domyślnego diffa:
+# przydaje się, gdy chcemy puścić go raz, a customowe są skonfigurowane
 git diff --no-ext-diff
+
+zignoruj hooka:
+# przydaje się, jeśli hook wyjątkowo się wywala, a chcemy wykonać operację
+git push --no-verify ...
+git commit --no-verify ...
 
 KONSOLA:
 
@@ -259,9 +265,19 @@ getfacl FILE_OR_FOLDER
 sprawdź grupy użytkownika:
 id # zalogowanego użytkownika
 id user_name
+
 sprawdź członków grupy:
 getent group group_name
-# jeśli id zwraca krótszą listę grup, to przelogowanie się tego użutkownika pomoże; w przypadku jupyterhuba awrto zrestartować serwer
+# jeśli id zwraca krótszą listę grup, to przelogowanie się tego użytkownika pomoże; w przypadku jupyterhuba warto zrestartować serwer
+
+zobacz wszystkie grupy:
+getent group
+
+utwórz grupę:
+groupadd <nazwa_grupy>
+
+dodaj użytkownika do grupy:
+sudo usermod -a -G group_name user_name
 
 nadaj sudo użytkownikowi:
 sudo usermod -a -G sudo <user>
@@ -376,6 +392,8 @@ podejrzyj zawartość zipa:
 unzip -l source_code.zip | less
 rozpakuj tar.gz:
 tar -xf archive.tar.gz
+polskie znaki windowsowe:
+unzip (-q) -O cswindows1250 <file_name>
 
 CONDA:
 conda activate ENV_NAME
@@ -400,6 +418,12 @@ pip list | grep ipykernel
 3. Jako użytkownik jupyter-bmroczek sprawdź, że conda widzi nowe środowisko:
 conda env list
 (uwaga: użytkownik jupyter-bmroczek nie powinien instalować niczego w tych środowiskach, bo i tak nie działa, ale twierdzi, że działa?) – chyba brakowało uprawnień, dlatego był read-only
+w takim przypadku `pip install` zainstaluje pakiety np. w '/home/$USER/.local/lib/python3.9/site-packages/pandas' (do sprawdzenia w pandas.__path__)
+
+isntalacja w środowisku, do którego dostęp wymaga sudo (każde na użytkowniku tljh):
+# źródło: Instalacja kulfona w polkomtel
+conda activate <środowisko usera tljh>  # wystarczy być swoim zwykłym użytkownikiem
+sudo -E env PATH=${PATH} pip install <paczka>  # przekazanie zmiennych środowiskowych i zmiennej PATH, której -E nie obejmuje
 
 wyczyszczenie nieużywanych plików:
 conda clean --all
