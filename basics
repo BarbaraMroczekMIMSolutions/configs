@@ -834,9 +834,6 @@ source: https://stackoverflow.com/a/49360507
 zdefiniuj tablicę:
 a=("perwszy element" "drugi element" "ostatni element")
 
-wstaw wszystkie opcje:
-ls filename.{first_option,txt,"one more"}
-
 przeiteruj się przez tablicę:
 for e in "${a[@]}"; do
     echo "$e"
@@ -844,6 +841,14 @@ done
 
 przeiteruj się po plikach:
 for f in ./*; do unzip "$f"; done
+
+wstaw wszystkie opcje:
+ls filename.{first_option,txt,"one more"}
+można tę składnię nawet zagnieżdżać:
+echo a{1..2}bc{{1..12},50,{60..62}}
+
+tak ogólniej:
+komenda ${parameter expansion} {brace expansion} glob* $(podkomenda ewaluowana wcześniej)  <(echo "przekaż plik z wynikiem tej komendy")
 
 podstaw (jedno) wystąpienie w zmiennej $x:
 ${x/find/replace}
@@ -869,7 +874,7 @@ echo $PATH powinno potwierdzić, że ten folder jest w ścieżce. Jeśli go nie 
     Do odświeżenia: source ~/.profile
 
 ustaw domyślny ekran (przydatne dla i3bar icon tray):
-    (nazwy do podejrzenia: xrandr --listmonitors)
+    (nazwy ekranów do podejrzenia: xrandr --listmonitors)
 xrandr --output eDP --primary
 xrandr --output HDMI-A-0 --primary
 dołącz monitor po prawej:
