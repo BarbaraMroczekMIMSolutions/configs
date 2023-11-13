@@ -633,7 +633,7 @@ wklej ze schowka 0:
 "0p
 wyświetl zawartość schowków:
 :reg (lub :dis)
-wykonaj jedno polecenie w trybie insert:
+wyjdź z trybu insert na jedno polecenie:
 ctrl+o
 zreidentuj: =
 (linię: podwójnie)
@@ -644,9 +644,12 @@ po użyciu przywróć autoindent: :set nopaste
 
 wyszukaj: /
 wyszukaj słowo pod kursorem: *
-przestań podświetlać: noh
-włącz podświetlenie wyszukania: set hlsearch
+przestań podświetlać: :noh
+włącz podświetlenie wyszukania: :set hlsearch
 wyszukaj wybrane przez visual: yq/gvp
+    y - yank; q/ - otwórz okno edycji command-line'u; gv - ostatnie zaznaczenie; p - paste
+zaznacz znaleziony fragment: gn
+    można też wykonać operację, np. usunąć: dgn
 
 zmień zaznaczenie na małe litery: u
 zmień zaznaczenie na wielkie litery: U
@@ -670,8 +673,8 @@ przejdź do pasującego nawiasu: %
 
 otwórz plik (dodaj do bufora): e <path/to/file>
 nowy bufor: new
-następny/poprzedni zbuforowany plik: bn/bp
-zamknij bieżący bufor: bd
+następny/poprzedni zbuforowany plik: :bn/:bp
+zamknij bieżący bufor: :bd
 szybki podgląd buforów: :ls
 
 uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
@@ -727,17 +730,17 @@ indent current line forward, backwards: ctrl + t, ctrl + d
 reload .vimrc: :so $MYVIMRC  # full command: source
 
 display cursor position:
-set ruler
+:set ruler
 
 ustaw język kolorowania składni (np. python):
 :set ft=sql
 
 pokaż białe znaki:
-set list
+:set list
 schowaj:
-set nolist
+:set nolist
 pokazuj także spacje:
-set lcs+=space:·
+:set lcs+=space:·
 
 użyj pylinta
 po odpowiednim zmodyfikowaniu .vimrc
