@@ -270,6 +270,9 @@ sprawdź członków grupy:
 getent group group_name
 # jeśli id zwraca krótszą listę grup, to przelogowanie się tego użytkownika pomoże; w przypadku jupyterhuba warto zrestartować serwer
 
+zmuś id do rozpoznania przyależności do grupy bez przelogowania użytkownika / restartu sesji:
+exec sg <new_group_name> "newgrp $(id -gn)"
+
 zobacz wszystkie grupy:
 getent group
 
@@ -433,6 +436,9 @@ source: https://stackoverflow.com/a/64005961
 sprawdzenie ustawień condy:
 conda config --show
 
+POETRY:
+każ mu ignorować keyring:
+export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
 
 DOCKER:
 
@@ -515,7 +521,7 @@ zaloguj się jako user:
 su - user
 
 uruchom serwer jupitera:
-jupyter notebook --notebook-dir /home/
+jupyter notebook --notebook-dir /home/ --port=8888
 (chcesz to zrobić w tmuxie, żeby móc się odłączyć)
 
 znalezienie tokena jupytera:
@@ -772,7 +778,7 @@ help do poszczególnego skrótu (przykład): i_ctrl-w
 dostępne prefiksy:
     brak: komenda w normal mode
     i_: komenda w trybie insert
-    v_: komenda w trybie insert
+    v_: komenda w trybie visual
     :: komenda wykonywalna (np. :tabedit)
     help dla ustawienia: help 'paste'
 
