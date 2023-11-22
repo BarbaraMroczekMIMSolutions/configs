@@ -624,6 +624,16 @@ ctrl + b; shift + d (D)
 wylistuj sesje:
 tmux list-sessions
 
+utwórz nową sesję:
+tmux new (-s <nazwa_sesji>)
+
+zmień nazwę sesji:
+rename-session [-t current-name] [new-name]  # domyślnie dotyczy aktualnie (ostatnio) używanej
+ctrl + b, $
+
+przełącz sesję:
+ctrl + b, s
+
 przestaw pane do innego okna:
 ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
 <przejdź do targetu>
