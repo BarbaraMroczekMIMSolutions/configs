@@ -888,6 +888,12 @@ snap update of firefox:
 snap refresh --list # sprawdź, czy są jakieś aktualizacje
 sudo snap refresh firefox # instalacja nowszej wersji
 
+nowe okno chrome'a z profilem mim ai:
+google-chrome --profile-directory="Default" --new-window
+
+nowe okno chrome'a z profilem domowym:
+google-chrome --profile-directory="Profile 1" --new-window
+
 skrypt do ogarniania workspace'ów:
 workspaces_manager.py <save|restore|to_main>
 Powinien mieszkać w ~/bin
@@ -901,6 +907,9 @@ xrandr --output eDP --primary
 xrandr --output HDMI-A-0 --primary
 dołącz monitor po prawej:
 xrandr --output HDMI-A-0 --auto --right-of eDP                                   
+
+zapisz layout i3 do jsona:
+i3-save-tree --workspace 10 > ~/workspace_10.json
 
 SageMaker:
 pluginy do jupyterlaba są tutaj:
