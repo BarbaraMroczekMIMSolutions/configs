@@ -150,6 +150,9 @@ git status # potwierdzenie, że wszystko poszło ok
 lokalny gitignore:
 wpisy w pliku .git/info/exclude
 
+lokalny gitattributes:
+wpisy w pliku .git/info/attributes
+
 używaj nbdime do porównywania notebooków:
 pip list | grep nbdime # sprawdź, że w środowisku jest mbdime
 nbdime config-git --enable --global
