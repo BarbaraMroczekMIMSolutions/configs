@@ -206,7 +206,8 @@ umount ./motyka
 
 klucze ssh:
 wygeneruj:
-ssh-keygen
+ssh-keygen -C komentarz
+ssh-keygen -t ed25519 -C "akowalski@mimsolutions" -f ~/.ssh/mimsolutions.id_ed25519
 skopiuj:
 ssh-copy-id user@host
 potrzebuje prawidłowych uprawnień ~ oraz ~/.ssh
@@ -442,6 +443,25 @@ conda config --show
 POETRY:
 każ mu ignorować keyring:
 export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+
+wersja cudy/pytorcha:
+# typ karty graficznej
+lspci | grep -i nvidia  # powinno działać; można też szukać w nvidia-smi
+# Compute Capability karty na stronie nvidii https://developer.nvidia.com/cuda-gpus
+# wersja CUDA, która wspiera CC do odczytania w magicznej tabelce https://stackoverflow.com/a/28933055
+# pasująca wersja pytorcha do wyboru https://pytorch.org/get-started/previous-versions/
+
+Bartek twierdzi, że miał problemy z 2.0.1 - 2.1.1 i lepiej trzymać się 2.0.0
+(np. pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1)
+
+# przetestowanie pytorcha/cudy:
+import os
+gpu_id="6"
+os.environ["CUDA_VISIBLE_DEVICES"] = f"{gpu_id}"
+import torch
+device = torch.device("cuda")
+x = torch.tensor(1.0).to(device=device)
+# sprawdź, czy pojawił się proces na właściwej karcie w nvidia-smi
 
 DOCKER:
 
