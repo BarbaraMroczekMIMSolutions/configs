@@ -134,6 +134,10 @@ git remote set-url origin git@gitlab.com:... # ustaw adres z protokołem ssh
 git remote -v # potwierdź, że nastąpiła zmiana
 git fetch # sprawdź, że działa (za pierwszym razem zaakceptuj klucze)
 
+podstawowa diagnostyka połączenia po ssh:
+(warto też sprawdzić zawartość ~/.ssh/config)
+ssh -vT git@github.com
+
 sprawdź naniesione zmiany podczas merge'a:
 git diff HEAD <file_name>
 
@@ -380,6 +384,7 @@ wypisz proces wg pid-a:
 ps -p <pid> -lF ww
 
 znajdź string w systemie plików:
+# flaga '-l': lista plików zamiast wystąpień
 grep -r --include="*.json" "text to find" .
 
 ustaw folder wykonania skryptu pythonowego:
@@ -441,8 +446,17 @@ sprawdzenie ustawień condy:
 conda config --show
 
 POETRY:
-każ mu ignorować keyring:
+każ mu ignorować keyring (warto przy każdej instalacji pakietów):
 export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+
+puść flake8:
+poetry run flake8 .
+
+puść isort:
+poetry run isort . --check-only
+
+puść testy:
+poetry run pytest
 
 wersja cudy/pytorcha:
 # typ karty graficznej
