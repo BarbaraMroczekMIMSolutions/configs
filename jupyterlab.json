@@ -53,6 +53,22 @@
                 "Ctrl Shift ArrowDown"
             ],
             "selector": "body"
+        },
+		{
+            "args": {},
+            "command": "notebook:enable-output-scrolling",
+            "keys": [
+                "Alt S"
+            ],
+            "selector": "body"
+        },
+        {
+            "args": {},
+            "command": "notebook:disable-output-scrolling",
+            "keys": [
+                "Alt Shift S"
+            ],
+            "selector": "body"
         }
     ]
 }
