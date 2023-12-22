@@ -204,6 +204,7 @@ zrestartuj network-menagera:
 sudo systemctl restart network-manager.service
 
 zamontuj pliki przez ssh do lokalnego folderu:
+    nie działa z symlinkiem, trzeba podać adres źródła; działają aliasy ssh
 sshfs bmroczek@motyka.mimuw.edu.pl:/home/bmroczek ./motyka
 odmontuj:
 umount ./motyka
