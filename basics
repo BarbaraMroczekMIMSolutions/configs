@@ -137,6 +137,10 @@ git fetch # sprawdź, że działa (za pierwszym razem zaakceptuj klucze)
 podstawowa diagnostyka połączenia po ssh:
 (warto też sprawdzić zawartość ~/.ssh/config)
 ssh -vT git@github.com
+# jeśli zły klucz jest podawany, to warto ustawić IdentityFile; jeśli to już jest na zdalnym, to warto tam skopiować klucz publiczny i go użyć, a w połączeniu na niego dodać:
+IdentitiesOnly yes
+ForwardAgent yes
+AddKeysToAgent yes
 
 sprawdź naniesione zmiany podczas merge'a:
 git diff HEAD <file_name>
@@ -275,6 +279,9 @@ sprawdź grupy użytkownika:
 id # zalogowanego użytkownika
 id user_name
 
+utwórz użytkownika:
+sudo adduser USERNAME
+
 sprawdź członków grupy:
 getent group group_name
 # jeśli id zwraca krótszą listę grup, to przelogowanie się tego użytkownika pomoże; w przypadku jupyterhuba warto zrestartować serwer
@@ -342,6 +349,9 @@ find /path/to/search/ -type f -name "glob-to-find-files" | xargs cp -t /target/p
 
 usuń puste foldery (rekurencyjnie):
 find . -name ".svn" -type d -empty -delete
+
+usuń z nadpisywaniem:
+shred -zu file_name  # z: dodatkowo nadpisz zerami; u: usuń końcowe pliki
 
 spisz checksumy wszystkich plików w folderze rekurencyjnie:
 find . -type f -exec md5sum '{}' >> md5check.txt \;
