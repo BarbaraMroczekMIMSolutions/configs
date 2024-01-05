@@ -601,6 +601,10 @@ jupyter nbconvert --to script --no-prompt Untitled.ipynb --output "path/to/outpu
 konwersja .ipymb do .html:
 jupyter nbconvert --to html --no-prompt --no-input noteebuk/to/convert.ipynb --output "path/to/output/file_name" # .html added blindly by the converter
 
+autoreload w notatniku:
+%load_ext autoreload
+%autoreload 2
+
 pandas wyświetlenie całej tabali:
 with (pd.option_context(
     'display.max_rows', None,
