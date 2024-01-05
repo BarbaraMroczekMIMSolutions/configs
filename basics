@@ -253,6 +253,8 @@ pip show <pakiet>
 zezwól na zmiany w folderze/pliku przez ipython:
 chown bmroczek:approx filename/foldername
 
+zmień tylko grupę:
+chgrp <nazwa_grupy> <nazwa_pliku>  # -R rekusywnie
 popraw właścicieli:
 chown -R bmroczek:approx . && chown -R bmroczek:approx * && chmod g+s .
 tylko jeśli był konkretny:
@@ -731,8 +733,8 @@ wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc
         :s/this is \([a-z]*\) example\(.*$\)/\1d this is output\2/
 
 przejdź do (definicji, n-tej linii): g (gd, n gg)
-wróć do poprzedniego miejsca: ctrl+o
-    następne: ctrl+i
+wróć do poprzedniego miejsca: ctrl + o
+    następne: ctrl + i
 przejdź do wiersza y, kolumny x:
 yGx|
 :norm yGx|
@@ -747,11 +749,12 @@ szybki podgląd buforów: :ls
 uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
     wszystkie pliki w folderze: vim -p $(ls .)
     lub używając globa: vim -p *.py
-otwórz plik w nowej zakładce: :tabe <path_to_file>
+otwórz plik w nowej zakładce: :tabe[dit] <path_to_file>
 następna zakładka: Ctrl + PgDwn lub gt
 poprzednia zakładka: Ctr + PgUp lub gT
-przesuń zakładkę: :tabm [nr]
+przesuń zakładkę: :tabm[ove] <nr>
 przejdź do n-tej zakładki: <n> gt
+zamknij wszystkie zakładki poza aktualną: :tabo[nly]
 
 polecenie okna ctrl-w
     o (aktualny bufor ma być jedynym widocznym)
