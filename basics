@@ -903,6 +903,10 @@ default: 'click'
 
 Unfreeze console after ctrl+s: ctrl+q
 
+dunst notification daemon:
+dunstctl <option>
+dunstctl context  # pozwala na podjęcie akcji
+
 BASH:
 
 zamknij sesję nie zapisując historii komend: kill -9 $$
