@@ -617,6 +617,9 @@ with (pd.option_context(
 pandas podejrzenie ustawień wyświetlania:
 pd.describe_option('display')
 
+schowanie SettingWithCopyWarning
+with pd.option_context('mode.chained_assignment','warn'):
+
 schowanie warningów w notebooku:
 with warnings.catch_warnings(record=True) as caught_warnings:
 
@@ -692,6 +695,9 @@ przestaw pane do innego okna:
 ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
 <przejdź do targetu>
 ctrl + b, :join-pane
+
+odłącz się od sesji, jeśli nie działa skrót:
+tmux detach
 
 VIM:
 usuń (linię/słowo/resztę linii): d (dd/daw/D)
