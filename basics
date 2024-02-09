@@ -374,9 +374,13 @@ gpu_usage # skrypt mim-owy?
 disk usage:
 du (-hs --max-depth=1)
 du -a -h --max-depth=1 | sort -hr
+du -ha -d 1 -t 1MB  # -d = --max-depth; -t = --threshold
 
 zajętość dysku:
 df -h
+
+aktualny folder z rozwinięciem symlinków:
+pwd -P
 
 ściąganie pliku:
 wget adres.do.pliku
@@ -679,7 +683,7 @@ odłącz innego klienta od sesji:
 ctrl + b; shift + d (D)
 
 wylistuj sesje:
-tmux list-sessions
+tmux list-sessions  # tmux ls
 
 utwórz nową sesję:
 tmux new (-s <nazwa_sesji>)
@@ -907,6 +911,10 @@ focus follows mouse:
 gsettings set org.gnome.desktop.wm.preferences focus-mode 'mouse'
 default: 'click'
 
+ustawienia LXQT:
+lxqt-config
+w szczególności na przykład lxqt-config-brightness dla jasności
+
 Unfreeze console after ctrl+s: ctrl+q
 
 dunst notification daemon:
@@ -958,6 +966,11 @@ google-chrome --profile-directory="Default" --new-window
 
 nowe okno chrome'a z profilem domowym:
 google-chrome --profile-directory="Profile 1" --new-window
+
+ustawienia domyślnych aplikacji:
+# są dwa niezależne ustawienia:
+update-alternatives --get-selections
+xdg-mime query default x-scheme-handler/https
 
 skrypt do ogarniania workspace'ów:
 workspaces_manager.py <save|restore|to_main>
