@@ -108,7 +108,7 @@ przejdź na bok, ściągnij świeżego mastera i przejdź na niego:
 git branch tmp && git checkout tmp && git branch -D master && git fetch && git checkout master && git branch -D tmp
 
 ściągnij repo i odtwórz je w folderze:
-git clone ssh://bmroczek@siekiera.mimuw.edu.pl:29418/nazwa_repo nazawa_folderu
+git clone ssh://bmroczek@siekiera.mimuw.edu.pl:29418/nazwa_repo nazwa_folderu
 
 ustaw gałąź na śledzenie gałęzi innego repo:
 git remote add <name_for_repo_reference> <address_of_repo_to_track>
@@ -621,7 +621,7 @@ with (pd.option_context(
 pandas podejrzenie ustawień wyświetlania:
 pd.describe_option('display')
 
-schowanie SettingWithCopyWarning
+schowanie pandasowego SettingWithCopyWarning
 with pd.option_context('mode.chained_assignment','warn'):
 
 schowanie warningów w notebooku:
@@ -688,6 +688,12 @@ tmux list-sessions  # tmux ls
 utwórz nową sesję:
 tmux new (-s <nazwa_sesji>)
 
+zapisz konsolę do pliku:
+ctrl + b, :
+capture-pane -S -  # zapisuje do schowka aktualną (-S) całą (-) sesję
+ctrl + b, :
+save-buffer /home/bmroczek/filename.txt  # x pełna ścieżka, bo inaczej wrzuci do home'a (?)
+
 zmień nazwę sesji:
 rename-session [-t current-name] [new-name]  # domyślnie dotyczy aktualnie (ostatnio) używanej
 ctrl + b, $
@@ -733,6 +739,8 @@ wyszukaj wybrane przez visual: yq/gvp
     y - yank; q/ - otwórz okno edycji command-line'u; gv - ostatnie zaznaczenie; p - paste
 zaznacz znaleziony fragment: gn
     można też wykonać operację, np. usunąć: dgn
+policz wystąpienia:
+:%s/pattern//gn
 
 zmień zaznaczenie na małe litery: u
 zmień zaznaczenie na wielkie litery: U
@@ -913,7 +921,8 @@ default: 'click'
 
 ustawienia LXQT:
 lxqt-config
-w szczególności na przykład lxqt-config-brightness dla jasności
+# w szczególności na przykład lxqt-config-brightness dla jasności
+# oraz lubuntu-upgrader (Apply Full Upgrade) dla managera upgradów
 
 Unfreeze console after ctrl+s: ctrl+q
 
@@ -950,6 +959,13 @@ ${x/find/replace}
 
 bashowe domyślne kolorowanie (ustaw zmienną według outputu; można wynik dopisać do ~/.bashrc):
 dircolors -b
+
+cron:
+# główny plik konfiguracyjny to /etc/crontab
+# podstawowa instrukcja jest w komentarzach na początku
+# najdrobniejsza granularność to odpalenie co 1 minutę (* * * * *)
+# sprawdź ostatnią aktywność cron-a:
+grep CRON /var/log/syslog | tail
 
 sprawdź stan baterii:
 upower -i /org/freedesktop/UPower/devices/battery_BAT0
