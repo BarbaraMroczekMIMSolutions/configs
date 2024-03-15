@@ -706,6 +706,13 @@ ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
 <przejdź do targetu>
 ctrl + b, :join-pane
 
+przenieś okno do innej sesji:
+# wewnątrz docelowej sesji
+ctrl + b, :
+move-window -s <session_name>:<window_number>
+# można pominąć :<window_number>, zostanie wtedy przeniesione ostatnio otwarte
+# jeśli sesja jest bezimienna, to można się do nie j odnieść jako $<numer_sesji>
+
 odłącz się od sesji, jeśli nie działa skrót:
 tmux detach
 
