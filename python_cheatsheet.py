@@ -12,7 +12,7 @@ for file in wd.iterdir:
 for file in wd.glob("*"):
     pass
 
-for file in rglob("*"):
+for file in wd.rglob("*"):
     pass
 
 # sprawdzenia
@@ -29,7 +29,7 @@ p = Path("/usr/bin/python3")
 
 p.parts == ('/', 'usr', 'bin', 'python3')
 
-p.parent
+p.parent == Path("/usr/bin")
 
 p.parents ==  # TODO
 p.parents[1] == Path("/usr")

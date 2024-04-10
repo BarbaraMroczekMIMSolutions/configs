@@ -497,7 +497,7 @@ x = torch.tensor(1.0).to(device=device)
 DOCKER:
 
 utwórz obraz:
-docker build -t <nazwa obrazu> <ścieżka folderu z Docerfilem>
+docker build -t <nazwa obrazu> <ścieżka folderu z Dockerfilem>
 # docker oczekuje, że wszystkie zasoby wykorzystywane w Dockerfile'u, np. kopiowane pliki
 # znajdują się w tym folderze. Najprościej wszystko tam kopiować, podobna da się robić też
 # hard-linki (soft-linki o targecie spoza katalogu nie działają)
@@ -527,6 +527,9 @@ docker rmi <id obrazu>
 
 usuń kontener:
 docker rm <nazwa kontenera>
+
+usuń wszystkie zatrzymane kontenery:
+docker container prune
 
 zatrzymaj kontener
 docker kill <nazwa kontenera> # wysyła SIGKILL
