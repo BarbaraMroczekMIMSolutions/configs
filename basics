@@ -1013,6 +1013,8 @@ dołącz monitor po prawej:
 xrandr --output HDMI-A-0 --auto --right-of eDP                                   
 zmień kolejność okien:
 xrandr --output eDP --right-of HDMI-A-0
+odłącz monitor:
+xrandr --output HDMI-A-0 --off
 
 zapisz layout i3 do jsona:
 i3-save-tree --workspace 10 > ~/workspace_10.json
