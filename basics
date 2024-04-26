@@ -529,6 +529,7 @@ usuń kontener:
 docker rm <nazwa kontenera>
 
 usuń wszystkie zatrzymane kontenery:
+# czyści folder /var/lib/docker/overlay2
 docker container prune
 
 zatrzymaj kontener
