@@ -646,37 +646,49 @@ profiler_session = profiler.last_session
 HTMLRenderer().open_in_browser(profiler_session, output_filename="./profiler_output.html")
 
 TMUX:
+
 odpal:
 tmux
 odłącz się:
 ctr+b, d
 podłącz się:
 tmux a
+
 Nowe okno:
 ctrl + b, c
+
 przejdź do n-tego okna:
 ctrl + b, <n>
 przejdź do następnego okna:
 ctrl + b, n
-scrolluj okno:
-ctrl + b, [
+przejdź do poprzenio używanego okna:
+ctrl + b, l
 wybierz okno z listy:
 ctrl + b, w
+
+scrolluj okno:
+ctrl + b, [
+
 zamknij aktualne okno:
 ctrl + b, x
+
 copy-paste między oknami:
     tryb zaznaczania: ctrl + b, [
     zacznij zaznaczać: ctrl + space
     skopiuj: ctrl + w
     wklej: ctrl + b, ]
+
 zmień nazwę okna:
 ctrl + b; ,
 zmień numer okna:
 ctrl + b; .
+
 help:
 ctrl + b, ?
+
 interactive command prompt:
 ctrl + b, :
+
 wyróżnij aktywne okno na statusie:
 set-window-option -g window-status-current-style bg=white
 
@@ -710,12 +722,20 @@ ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
 <przejdź do targetu>
 ctrl + b, :join-pane
 
+wydziel pane do osobnego okna:
+ctrl + b, :break-pane
+ctr + b, !
+
+wydziel nowy pane:
+ctr + b, "  # podział w pionie
+ctr + b, %  # podział w poziomie
+
 przenieś okno do innej sesji:
 # wewnątrz docelowej sesji
 ctrl + b, :
 move-window -s <session_name>:<window_number>
 # można pominąć :<window_number>, zostanie wtedy przeniesione ostatnio otwarte
-# jeśli sesja jest bezimienna, to można się do nie j odnieść jako $<numer_sesji>
+# jeśli sesja jest bezimienna, to można się do niej odnieść jako $<numer_sesji>
 
 odłącz się od sesji, jeśli nie działa skrót:
 tmux detach
@@ -1053,3 +1073,13 @@ Identifier "Dell Touchpad"
 MatchProduct "DELL0A78:00 27C6:0D42 Touchpad"
 Option "Tapping" "true"
 EndSection
+
+zamiana Esc z Tab:
+do pliku ~/.Xmodmap dopisać:
+clear Lock
+keysym Caps_Lock = Escape
+keysym Escape = Caps_Lock
+add Lock = Caps_Lock
+
+załadowanie tego pliku (choć powinno się samo ładować po logowaniu):
+xmodmap ~/.Xmodmap
