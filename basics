@@ -463,6 +463,10 @@ sprawdzenie ustawień condy:
 conda config --show
 
 POETRY:
+
+zwiększ liczbę komunikatów o błędzie (gdy instalacja zawisa):
+poetry install -vvv
+
 każ mu ignorować keyring (warto przy każdej instalacji pakietów):
 export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
 
@@ -576,6 +580,7 @@ pulse audio volume control:
 pavucontrol
 
 zaloguj się jako user:
+# "-" odpowiada za zmiany w środowisku (HOME, USER, LOGNAME etc.)
 su - user
 
 uruchom serwer jupitera:
