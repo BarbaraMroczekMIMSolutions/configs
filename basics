@@ -749,23 +749,20 @@ VIM:
 usuń (linię/słowo/resztę linii): d (dd/daw/D)
 skopiuj: y
 skopiuj zawartość vimowego schowka do schowka systemowego:
-:call system('xclip -selection clipboard', @0)   
-wklej w trybie insert:
-ctrl+r, "
+    :call system('xclip -selection clipboard', @0)   
+wklej w trybie insert: ctrl+r, "
 wklej tak, żeby działało w "." dla powtórzeń (np. w "c" (change)):
-ctr+r, ctrl+p, "
-wklej ze schowka 0:
-"0p
+    ctr+r, ctrl+p, "
+wklej ze schowka 0: "0p
 wyświetl zawartość schowków:
-:reg (lub :dis)
-wyjdź z trybu insert na jedno polecenie:
-ctrl+o
-zreidentuj: =
-(linię: podwójnie)
+    :reg (lub :dis)
 tryb wizualnego zaznaczania: v
 zaznacz po wklejeniu wklejony tekst: v']
 wyłącz autoindent do wklejenia wielu linii ze schowka: :set paste
 po użyciu przywróć autoindent: :set nopaste
+
+wyjdź z trybu insert na jedno polecenie: ctrl+o
+zreidentuj: = (linię: podwójnie)
 
 wyszukaj: /
 wyszukaj słowo pod kursorem: *
@@ -778,9 +775,6 @@ zaznacz znaleziony fragment: gn
 policz wystąpienia:
 :%s/pattern//gn
 
-zmień zaznaczenie na małe litery: u
-zmień zaznaczenie na wielkie litery: U
-
 wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc 
     zakres: "%" - cały plik
             "3,10" - linie 3-10 włącznie
@@ -789,6 +783,9 @@ wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc
             "*" - ostatnio użyty visual; żeby wstawić aktywne zaznaczenie do zakresu - ":"
     odwołanie do grup wychwytujących  regexie:
         :s/this is \([a-z]*\) example\(.*$\)/\1d this is output\2/
+
+zmień zaznaczenie na małe litery: u
+zmień zaznaczenie na wielkie litery: U
 
 przejdź do (definicji, n-tej linii): g (gd, n gg)
 wróć do poprzedniego miejsca: ctrl + o
@@ -825,31 +822,25 @@ skopiuj nazwę pliku do domyślnego schowka:
     :let @"=@%
 
 wyczyść spacje na końcu linii:
-:%s/\s\+$//e
-    :%s to run :substitute over the range %, which is the entire buffer.
-    \s to match all whitespace characters.
-    \+ to match 1 or more of them.
-    $ to anchor at the end of the line.
-    The e flag to not give an error if there is no match (i.e. the file is already without trailing whitespace).
+    :%s/\s\+$//e
+        :%s to run :substitute over the range %, which is the entire buffer.
+        \s to match all whitespace characters.
+        \+ to match 1 or more of them.
+        $ to anchor at the end of the line.
+        The e flag to not give an error if there is no match (i.e. the file is already without trailing whitespace).
 
 wykomentuj blok kodu:
-ctrl + v (visiual block)
-shift + i (insert on left side)
-# (text to insert, it will be inserted visibly only on the first line)
-esc (end inserting)
+    ctrl + v (visiual block)
+    shift + i (insert on left side)
+    # (text to insert, it will be inserted visibly only on the first line)
+    esc (end inserting)
+Usuń komentarz: ctrl + v; x
 
-Usuń komentarz:
-ctrl + v; x
-
-zaznacz blok wierszy:
-shift + v
-
-Dodaj do końca paru wierszy:
-ctrl + v; $A
-
+zaznacz blok wierszy: shift + v
+dodaj do końca paru wierszy: ctrl + v; $A
 podczas tworzenia zaznaczenia:
-zaznacz do końca linii (także w bloku): $
-przejdź do drugiego końca zaznaczenia: o
+    zaznacz do końca linii (także w bloku): $
+    przejdź do drugiego końca zaznaczenia: o
 
 autocompletion: ctrl + n / ctrl + p
 autocomplete file name: ctrl + x, ctrl + f
@@ -857,18 +848,14 @@ indent current line forward, backwards: ctrl + t, ctrl + d
 
 reload .vimrc: :so $MYVIMRC  # full command: source
 
-display cursor position:
-:set ruler
+display cursor position: :set ruler
 
 ustaw język kolorowania składni (np. python):
-:set ft=sql
+    :set ft=sql
 
-pokaż białe znaki:
-:set list
-schowaj:
-:set nolist
-pokazuj także spacje:
-:set lcs+=space:·
+pokaż białe znaki: :set list
+schowaj: :set nolist
+pokazuj także spacje: :set lcs+=space:·
 
 użyj pylinta
 po odpowiednim zmodyfikowaniu .vimrc
@@ -877,29 +864,26 @@ po odpowiednim zmodyfikowaniu .vimrc
 :cn # następny komentarz
 :cp # poprzedni komentarz
 
-powtórz edycję
-.
+powtórz edycję: .
 
-powtórz komendę:
-@:
-(za następnym razem wystarczy @@)
+powtórz komendę: @:  (za następnym razem wystarczy @@)
 
 nawigacja - do opisania:
 [[, ]], [m, ]m, {, }
 
-podejrzyj wartość ustawienia:
-:set <option>?
+podejrzyj wartość ustawienia: :set <option>?
 
 nawigacja po helpie:
-przeskocz do tagu: ctrl-]
-wróć po skoku: ctrl-o
-help do poszczególnego skrótu (przykład): i_ctrl-w
-dostępne prefiksy:
-    brak: komenda w normal mode
-    i_: komenda w trybie insert
-    v_: komenda w trybie visual
-    :: komenda wykonywalna (np. :tabedit)
-    help dla ustawienia: help 'paste'
+    przeskocz do tagu: ctrl-]
+    wróć po skoku: ctrl-o
+    help do poszczególnego skrótu (przykład): i_ctrl-w
+    dostępne prefiksy:
+        brak: komenda w normal mode
+        i_: komenda w trybie insert
+        v_: komenda w trybie visual
+        :: komenda wykonywalna (np. :tabedit)
+        help dla ustawienia: help 'paste'
+
 
 ZOOM:
 fix lack of opacity:
