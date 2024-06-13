@@ -901,52 +901,6 @@ dostępne prefiksy:
     :: komenda wykonywalna (np. :tabedit)
     help dla ustawienia: help 'paste'
 
-ATOM:
-odkryj/ukryj podgląd plików:
-ctrl+\
-nowe podokno:
-ctrl+k, <arrow>
-przejdź do podokna:
-ctrl+k, ctrl+<arrow>;
-zwiń kod do głębokości n:
-ctrl+k, ctrl+<n>
-(od)komentuj:
-ctrl+/
-postaw/zdejmij breakpoint:
-F9
-zdejmij wszystkie breakpointy:
-ctrl+shift+F9
-zacznij debug:
-F5
-otwórz pik:
-ctrl+p
-wyszukaj polecenie:
-ctrl+shift+p
-nowy kursor:
-ctrl+mouseclick
-alt+shift+<up/down arrow>
-nowy kursor dla następnego wystąpienia ciągu:
-ctrl+d
-
-SUBLIME:
-menu folderu:
-ctrl+k, ctrl+b
-nowe podokno:
-ctrl+k, ctrl+↑
-zamknij podokno:
-ctrl+k, ctrl+↓
-przejdź do okna nr n:
-ctr+<n>
-(w tym boczne menu ma nr 0)
-wyjdź z bocznego menu:
-esc
-ogólne wyszukaj plik:
-ctrl+p
-wyszukaj polecenie:
-ctrl+shift+p
-przejdź do nawiasu od pary:
-ctrl+m
-
 ZOOM:
 fix lack of opacity:
 xcompmgr -c -l0 -t0 -r0 -o.00
@@ -1044,19 +998,6 @@ xrandr --output HDMI-A-0 --off
 
 zapisz layout i3 do jsona:
 i3-save-tree --workspace 10 > ~/workspace_10.json
-
-SageMaker:
-pluginy do jupyterlaba są tutaj:
-/opt/conda/share/jupyter/lab/extensions
-prawdopodobnie warto rozpakować amzn-sagemaker-ui-3.16.4.tgz i zajrzeć do środka
-rozpakowane są tu:
-/opt/conda/lib/python3.7/site-packages/
-tutaj:
-/opt/conda/lib/python3.7/site-packages/sagemaker_nb2kg/constants.py
-jest ciekawa stała DEFAULT_CPU_INSTANCE_TYPE = "ml.t3.medium"
-
-jupyter lab build
-RuntimeError: npm dependencies failed to install
 
 
 KONFIGURACJE
