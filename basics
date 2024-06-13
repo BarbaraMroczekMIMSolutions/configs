@@ -816,6 +816,8 @@ przełącz włączenie/wyłączenie zagięć: zi
 usuń zagięcie (wszystkie głębokości): zd (zD)  # D-elete
 podgląd położenia zagięć:
     :set foldcolumn=4  # szerokość panelu (default 0 chowa)
+przelicz ponownie zagięcia: zx
+    # tu jest jakiś pathc https://github.com/tmhedberg/SimpylFold/issues/116
 
 otwórz plik (dodaj do bufora): e <path/to/file>
 nowy bufor: new
