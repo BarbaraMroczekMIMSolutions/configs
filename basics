@@ -795,11 +795,35 @@ yGx|
 :norm yGx|
 przejdź do pasującego nawiasu: %
 
+utwórz marker: ma  # a - nazwa markera
+idź do markera: `a  # a - nazwa markera
+idź do początku linii z markerem: 'a  # a - nazwa markera
+wylistuj markery: :marks
+usuń marker: :delm
+
+utwórz zagięcie (fold):
+    # możliwe w trybie :set foldmethod=manual
+    # niedostępne w trybie :set foldmethod=indent
+    zf  # F-old
+otwórz zagięcie: zo  # O-pen
+zamknij zagięcie: zc  # C-lose
+przełącz otwarcie i zamknięcie zagięcia: za
+otwórz jeden poziom zagięcia (wszystko): zr (zR)  # R-emove
+złóż jeden poziom zagięcia (wszystko): zm (zM)  # M-ore
+wyłącz (tymczasowo) zagięcia: zn
+włącz zagięcia z powrotem: zN
+przełącz włączenie/wyłączenie zagięć: zi
+usuń zagięcie (wszystkie głębokości): zd (zD)  # D-elete
+podgląd położenia zagięć:
+    :set foldcolumn=4  # szerokość panelu (default 0 chowa)
+
 otwórz plik (dodaj do bufora): e <path/to/file>
 nowy bufor: new
 następny/poprzedni zbuforowany plik: :bn/:bp
 zamknij bieżący bufor: :bd
 szybki podgląd buforów: :ls
+otwórz bufor: :tabnew +Nbuf  # where N is the buffer number
+    # przydatne przy zamknięciu taba z niezapisanymi zmianami
 
 uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
     wszystkie pliki w folderze: vim -p $(ls .)
@@ -852,6 +876,17 @@ display cursor position: :set ruler
 
 ustaw język kolorowania składni (np. python):
     :set ft=sql
+utwórz nową grupę do kolorowania:
+    highlight MyNewColorGroup ctermfg=Brown ctermbg=White
+    lista kolorów dostępna tutaj: :h cterm-colors
+dodaj słowo do grupy:  # escape'owanie znaków do ogarnięcia
+    # tipy dotyczące znaków https://vi.stackexchange.com/a/21773
+    :call matchadd("MyNewColorGroup", '\<my_word_to_highlight\>')
+zmień ustawienia grupy:
+    :highlight [group] [key=value]
+wylistuj grupy:
+    :hi  # abbreviation of :highlight
+
 
 pokaż białe znaki: :set list
 schowaj: :set nolist
@@ -883,6 +918,13 @@ nawigacja po helpie:
         v_: komenda w trybie visual
         :: komenda wykonywalna (np. :tabedit)
         help dla ustawienia: help 'paste'
+
+ogarnianie pluginów:
+tu jest repo: https://github.com/junegunn/vim-plug
+instalacja:
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+użycie jest opisane w '.vim/autoload/plug.vim'
 
 
 ZOOM:
@@ -1013,3 +1055,8 @@ add Lock = Caps_Lock
 
 załadowanie tego pliku (choć powinno się samo ładować po logowaniu):
 xmodmap ~/.Xmodmap
+
+wyciszenie sali konferencyjnej:
+pilot z czerwonym trójkątem
+wyciszyć (po lewej z przodu)
+
