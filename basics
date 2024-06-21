@@ -187,6 +187,9 @@ użyj domyślnego diffa:
 # przydaje się, gdy chcemy puścić go raz, a customowe są skonfigurowane
 git diff --no-ext-diff
 
+używaj vima jako edytora:  # dodaje wpis w .gitconfig
+    git config core.editor "vim"  # opcjonalnie --global
+
 zignoruj hooka:
 # przydaje się, jeśli hook wyjątkowo się wywala, a chcemy wykonać operację
 git push --no-verify ...
@@ -288,7 +291,7 @@ sprawdź członków grupy:
 getent group group_name
 # jeśli id zwraca krótszą listę grup, to przelogowanie się tego użytkownika pomoże; w przypadku jupyterhuba warto zrestartować serwer
 
-zmuś id do rozpoznania przyależności do grupy bez przelogowania użytkownika / restartu sesji:
+zmuś id do rozpoznania przynależności do grupy bez przelogowania użytkownika / restartu sesji:
 exec sg <new_group_name> "newgrp $(id -gn)"
 
 zobacz wszystkie grupy:
@@ -488,6 +491,7 @@ lspci | grep -i nvidia  # powinno działać; można też szukać w nvidia-smi
 
 Bartek twierdzi, że miał problemy z 2.0.1 - 2.1.1 i lepiej trzymać się 2.0.0
 (np. pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1)
+    chodzi o domyślną wersję cudy 11.x (a nie >=12), czyli kompatybilną z aktualnymi sterownikami na Kulfonie. Dodatkowo poetry mu szalało na zależnościach, ale pipy będzie działać.
 
 # przetestowanie pytorcha/cudy:
 import os
@@ -817,7 +821,7 @@ usuń zagięcie (wszystkie głębokości): zd (zD)  # D-elete
 podgląd położenia zagięć:
     :set foldcolumn=4  # szerokość panelu (default 0 chowa)
 przelicz ponownie zagięcia: zx
-    # tu jest jakiś pathc https://github.com/tmhedberg/SimpylFold/issues/116
+    # tu jest jakiś patch https://github.com/tmhedberg/SimpylFold/issues/116
 
 otwórz plik (dodaj do bufora): e <path/to/file>
 nowy bufor: new
@@ -928,6 +932,17 @@ instalacja:
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 użycie jest opisane w '.vim/autoload/plug.vim'
 
+
+HYDRA
+zmień config podczas odpalenia skryptu:
+python my_script.py --config-name "new_name" --config-path "new_path"
+
+popraw ścieżki importów (toporne, ale działa):
+PYTHONPATH=. python3 my_script.py
+
+ładnie wypisz config:
+    from omegaconf import OmegaConf
+    print(OmegaConf.to_yaml(cfg, resolve=True))
 
 ZOOM:
 fix lack of opacity:
@@ -1062,3 +1077,18 @@ wyciszenie sali konferencyjnej:
 pilot z czerwonym trójkątem
 wyciszyć (po lewej z przodu)
 
+
+
+TODO:
+POETRY:
+
+^ zachowuje tylko pierwszą cyfrę
+wyświetl wersję w poetry.lock:
+	poetry show  # opcjonalnie nazwa pakietu; -T tylko podane bezpośrednio (top-level)
+
+CONDA:
+sprawdź właściwą wagę środowisk (po uwzględnieniu hardlinków):
+	du -sh pkgs envs/*
+prześledź hardlink:
+	ls -i  # wyświetla numery inode
+	find . -inum NUM  # wyszukuje wszystkie pliki linkujące do inode=NUM
