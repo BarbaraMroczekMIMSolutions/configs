@@ -1,5 +1,8 @@
 GIT:
 
+aktualny stan lokalnego repo:
+git status
+
 ściągnij stan aktualny repo z origin/master
 git fetch && git rebase origin/master
 
@@ -41,8 +44,14 @@ popraw zamendowanie na osobny commit:
 git reset --soft HEAD@{1}
 git commit -C HEAD@{1}
 
-aktualny stan lokalnego repo:
-git status
+odnoszenie do poprzednich commitów:
+HEAD@{n} - gdzie wskazywał HEAD n zmian temu (checkoutów, commitów, merge'y, wszystkiego)
+    lista do przejrzenia w git reflog
+HEAD~n - n-ty przodek HEAD w liniowej historii
+    lista do podejrzenia w git log
+HEAD^n - n-ty rodzic aktualnego commita (przydatne przy merge'ach)
+Sprawdzienie, czy wybrano właściwy commit (wypisz info):
+    git show HEAD~5
 
 porównaj zmiany pliku:
     index = staging area
@@ -119,6 +128,10 @@ git checkout --track <full_name_of_the_remote_branch> # sets up new branch of th
 
 Przestań śledzić branch (usuwa tylko lokalne śledzenie, nie modyfikuje źródła):
 git branch -d -r origin/<remote branch name>
+
+Ustaw lokalną gałąź na śledzenie gałęzi z remote:
+# jeśli local_branch_name pominięte, to ustawia dla aktualnej
+git branch --set-upstream-to=origin/remote_branch_name local_branch_name
 
 Wywołaj garbage collector (np. po usunięciu gałęzi i/lub remote-tracking brancha):
 git reflog expire --expire-unreachable=all --all
@@ -592,7 +605,7 @@ jupyter notebook --notebook-dir /home/ --port=8888
 (chcesz to zrobić w tmuxie, żeby móc się odłączyć)
 
 znalezienie tokena jupytera:
-jupyter notebook list (tylko z konta usera mim)
+jupyter server list (tylko z konta usera mim)
 
 sprawdź, co zajmuje port xyz:
 lsof -i tcp:xyz
