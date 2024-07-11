@@ -653,10 +653,6 @@ with pd.option_context('mode.chained_assignment','warn'):
 schowanie warningów w notebooku:
 with warnings.catch_warnings(record=True) as caught_warnings:
 
-formatowanie wypisywania liczb:
-f"{i:03d}"  # wypisz na 3 cyfrach inta d
-f"{i:.3f}"  # wypisz 3 cyfry po przecinku
-
 Time profiler for python:
 from pyinstrument import Profiler
 from pyinstrument.renderers import HTMLRenderer
@@ -946,17 +942,6 @@ instalacja:
 użycie jest opisane w '.vim/autoload/plug.vim'
 
 
-HYDRA
-zmień config podczas odpalenia skryptu:
-python my_script.py --config-name "new_name" --config-path "new_path"
-
-popraw ścieżki importów (toporne, ale działa):
-PYTHONPATH=. python3 my_script.py
-
-ładnie wypisz config:
-    from omegaconf import OmegaConf
-    print(OmegaConf.to_yaml(cfg, resolve=True))
-
 ZOOM:
 fix lack of opacity:
 xcompmgr -c -l0 -t0 -r0 -o.00
@@ -975,6 +960,12 @@ Unfreeze console after ctrl+s: ctrl+q
 dunst notification daemon:
 dunstctl <option>
 dunstctl context  # pozwala na podjęcie akcji
+
+modyfikacja konkretnego powiadomienia:
+pkill dunst; dunst -print  # sprawdź szczegóły powiadomienia
+dopisz odpowiedni filtr w .config/dunst/dunstrc (źródło wzięte ze ścieżki z manuala)
+pkill dunst; dunst &  # odczep dunsta od konsoli
+dunstify "Test Notification" "This is a test message."  # sprawdź, czy reszta działą
 
 BASH:
 
