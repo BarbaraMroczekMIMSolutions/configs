@@ -890,7 +890,7 @@ reload .vimrc: :so $MYVIMRC  # full command: source
 display cursor position: :set ruler
 
 ustaw język kolorowania składni (np. python):
-    :set ft=sql
+    :set ft=sql  # abbreviation of filetype
 utwórz nową grupę do kolorowania:
     highlight MyNewColorGroup ctermfg=Brown ctermbg=White
     lista kolorów dostępna tutaj: :h cterm-colors
