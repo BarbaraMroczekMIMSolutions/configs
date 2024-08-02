@@ -967,6 +967,11 @@ dopisz odpowiedni filtr w .config/dunst/dunstrc (źródło wzięte ze ścieżki 
 pkill dunst; dunst &  # odczep dunsta od konsoli
 dunstify "Test Notification" "This is a test message."  # sprawdź, czy reszta działą
 
+sprawdzenie ustawień DNSów:
+sudo resolvectl status
+restart cache'ów DNSa:
+sudo resolvectl flush-caches
+
 BASH:
 
 zamknij sesję nie zapisując historii komend: kill -9 $$
