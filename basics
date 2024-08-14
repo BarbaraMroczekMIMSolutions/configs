@@ -210,6 +210,10 @@ git commit --no-verify ...
 
 KONSOLA:
 
+ustawienie basha jako domyślnego shella:
+cat /etc/shells  # lista dostępnych shelli
+chsh -s /bin/bash
+
 copy, paste:
 ctrl+shift+c, ctrl+shift+v
 
@@ -234,7 +238,7 @@ wygeneruj:
 ssh-keygen -C komentarz
 ssh-keygen -t ed25519 -C "akowalski@mimsolutions" -f ~/.ssh/mimsolutions.id_ed25519
 skopiuj:
-ssh-copy-id user@host
+ssh-copy-id user@host  # dodaje do ~/.ssh/authorized_keys; opcjonalnie -n (dry run)
 potrzebuje prawidłowych uprawnień ~ oraz ~/.ssh
 potrzebuje klonowania repo przez ssh, nie http
 
@@ -566,6 +570,12 @@ docker logs <nazwa kontenera> # # sprawdź logi kontenera
 
 wejdź do kontenera:
 docker exec -it <container_id> sh  # bash jest wygodniejszy, o ile jest w obrazie
+
+restart dockerowego daemona (np. żeby przetestować restart: always):
+# w zależności od sposobu instalacji dockera/systemu?
+sudo systemctl restart docker
+sudo service docker restart
+sudo snap restart docker
 
 wyślij jsona do biegającego serwera flaskowego:
 curl -i -H "Content-Type: application/json" -X POST -d '{"userId":"1", "username": "fizz aaaa"}' http://localhost:5000/post_test
