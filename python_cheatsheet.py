@@ -49,7 +49,8 @@ while "notebooks" in os.getcwd():
     os.chdir("..")
 
 
-formatowanie wypisywania liczb:
+# formatowanie wypisywania liczb:
+
 f"{i:03d}"  # wypisz na 3 cyfrach inta d
 f"{i:.3f}"  # wypisz 3 cyfry po przecinku
 

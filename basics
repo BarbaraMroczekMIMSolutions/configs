@@ -379,8 +379,10 @@ spisz checksumy wszystkich plików w folderze rekurencyjnie:
 find . -type f -exec md5sum '{}' >> md5check.txt \;
 porównaj te pliki:
 import pandas as pd
-source = pd.read_csv("md5check_source.txt", names=["sha", "file"], sep="  ")
-target = pd.read_csv("md5check_target.txt", names=["sha", "file"], sep="  ")
+def on_bad_line(bad_line: list[str]) -> list[str]:
+    return [bad_line[0], "  ".join(bad_line[1:])]
+source = pd.read_csv("md5check_source.txt", names=["sha", "file"], sep="  ", on_bad_lines=on_bad_line, engine="python")
+target = pd.read_csv("md5check_target.txt", names=["sha", "file"], sep="  ", on_bad_lines=on_bad_line, engine="python")
 comp = source.merge(target, on="file", suffixes=["_source", "_target"], validate="1:1")
 comp[comp.sha_source != comp.sha_target]
 
