@@ -155,6 +155,10 @@ IdentitiesOnly yes
 ForwardAgent yes
 AddKeysToAgent yes
 
+w przypadku wielu kont na githubie można dodać klucz do gita:
+# source: https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use
+git config core.sshCommand "ssh -i ~/.ssh/github -F /dev/null"
+
 sprawdź naniesione zmiany podczas merge'a:
 git diff HEAD <file_name>
 
