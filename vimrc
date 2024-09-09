@@ -18,8 +18,19 @@ set autoindent          " when opening new line, copy indentation from line abov
 set background=dark
 set t_Co=256
 
+" include pylint
+set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
+set errorformat=%f:%l:\ %m
+
+let g:black_use_virtualenv = 0  # use the system black instead of separate virtualenv one
 call plug#begin('~/.vim/plugged')
-" example
-" Plug 'tpope/vim-sensible'
-Plug 'psf/black', { 'branch': 'stable' }
+Plug 'Konfekt/FastFold'
+Plug 'tmhedberg/SimpylFold'
+Plug 'psf/black'
 call plug#end()
+
+# run black on save
+augroup black_on_save
+  autocmd!
+  autocmd BufWritePre *.py Black
+augroup end
