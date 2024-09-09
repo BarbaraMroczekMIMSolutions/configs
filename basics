@@ -287,6 +287,9 @@ zmień tylko foldery:
 find /path/to/base/dir -type d -exec chmod g+s {} \;
 zmień tylko pliki:
 find /path/to/base/dir -type f -exec chmod 644 {} \;
+Jeśli w dostępie mam g=r-S, to setgid działa, ale grupa nie ma dostępu. Najłatwiej to naprawić przez:
+# +X doda wykonywalność tylko do folderów i plików, które są wykonywalne dla użytkownika bądź pozostałych, w przeciwieństwie do +x
+chmod -R g+X /path/to/base/dir
 
 zawansowane uprawnienia:
 JUPYTER_USER="jupyter-$USER"
@@ -686,7 +689,7 @@ tmux
 odłącz się:
 ctr+b, d
 podłącz się:
-tmux a
+tmux a (-t <nazwa_sesji>)
 
 Nowe okno:
 ctrl + b, c
@@ -774,6 +777,7 @@ move-window -s <session_name>:<window_number>
 odłącz się od sesji, jeśli nie działa skrót:
 tmux detach
 
+
 VIM:
 usuń (linię/słowo/resztę linii): d (dd/daw/D)
 skopiuj: y
@@ -855,6 +859,7 @@ zamknij bieżący bufor: :bd
 szybki podgląd buforów: :ls
 otwórz bufor: :tabnew +Nbuf  # where N is the buffer number
     # przydatne przy zamknięciu taba z niezapisanymi zmianami
+przejdź do ostatniego otwartego bufora: Ctrl + ^
 
 uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
     wszystkie pliki w folderze: vim -p $(ls .)
