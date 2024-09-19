@@ -814,8 +814,11 @@ wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc
             ".,$" - od linii z kursorem do końca pliku
             "1,+1" - od początku do następnej linii za kursorem
             "*" - ostatnio użyty visual; żeby wstawić aktywne zaznaczenie do zakresu - ":"
-    odwołanie do grup wychwytujących  regexie:
+    odwołanie do grup wychwytujących w regexie:
         :s/this is \([a-z]*\) example\(.*$\)/\1d this is output\2/
+    nowa linia:
+        \n  # przy wyszukiwaniu
+        \r  # przy wstawianiu
 
 zmień zaznaczenie na małe litery: u
 zmień zaznaczenie na wielkie litery: U
@@ -851,6 +854,7 @@ podgląd położenia zagięć:
     :set foldcolumn=4  # szerokość panelu (default 0 chowa)
 przelicz ponownie zagięcia: zx
     # tu jest jakiś patch https://github.com/tmhedberg/SimpylFold/issues/116
+    :FastFoldUpdate!
 
 otwórz plik (dodaj do bufora): e <path/to/file>
 nowy bufor: new
