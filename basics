@@ -264,6 +264,12 @@ scp -p -P 29418 <login>@siekiera.mimuw.edu.pl:hooks/commit-msg <projectDir>/.git
 sprawdź, czy biblioteka pythonowa jest zainstalowana (tutaj redis):
 pip list | grep redis
 
+zapisz listę zainstalowaynch bibliotek:
+pip list --format=freeze > env_name_requirements.txt
+# pip freeze wypisuje biblioteki instalowane przez condę jako
+# amqp @ file:///home/conda/feedstock_root/build_artifacts/amqp_1591005859311/work
+# source: https://stackoverflow.com/q/62863020
+
 sprawdź, gdzie są pliki konkretnego liba:
     czasem warto sprawdzić autorstwo tych plików oraz czy nie znajdują się w local, czyli
     poza folderem środowiska
@@ -943,6 +949,9 @@ powtórz edycję: .
 
 powtórz komendę: @:  (za następnym razem wystarczy @@)
 
+wiele komend bez poprzedzania każdej ":": gQ
+(samo Q daje to samo bez uzupełniania i podglądu rezultatu)
+
 nawigacja - do opisania:
 [[, ]], [m, ]m, {, }
 
@@ -1126,3 +1135,7 @@ sprawdź właściwą wagę środowisk (po uwzględnieniu hardlinków):
 prześledź hardlink:
 	ls -i  # wyświetla numery inode
 	find . -inum NUM  # wyszukuje wszystkie pliki linkujące do inode=NUM
+
+psql:
+\c postgres  # połącz się z bazą postgres
+\dt  # wylistuj tabele
