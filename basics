@@ -324,6 +324,9 @@ getent group group_name
 zmuś id do rozpoznania przynależności do grupy bez przelogowania użytkownika / restartu sesji:
 exec sg <new_group_name> "newgrp $(id -gn)"
 
+restart shella w tmuxie (też odświeża grupę, ale restartuję sesję bashową):
+exec su -l $USER
+
 zobacz wszystkie grupy:
 getent group
 
@@ -406,13 +409,17 @@ zużycie gpu:
 (watch) nvidia-smi
 gpu_usage # skrypt mim-owy?
 
+zajętość dysku:
+df -h
+
 disk usage:
 du (-hs --max-depth=1)
 du -a -h --max-depth=1 | sort -hr
 du -ha -d 1 -t 1MB  # -d = --max-depth; -t = --threshold
 
-zajętość dysku:
-df -h
+sumaryczna waga plików zgodnych z globem:
+find . -name "blob_expr" -user mim -not -newermt "2024-06-01" -exec du -ch {} + | tail -n1
+# -newermt to nowszy niż (uwaga na -not)
 
 aktualny folder z rozwinięciem symlinków:
 pwd -P
