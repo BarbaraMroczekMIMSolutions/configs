@@ -444,6 +444,7 @@ ps -p <pid> -lF ww
 
 znajdź string w systemie plików:
 # flaga '-l': lista plików zamiast wystąpień
+# parametr '-C': wielkość kontekstu (linii przed i po); -A dla after; -B dla before
 grep -r --include="*.json" "text to find" .
 
 ustaw folder wykonania skryptu pythonowego:
@@ -1146,3 +1147,23 @@ prześledź hardlink:
 psql:
 \c postgres  # połącz się z bazą postgres
 \dt  # wylistuj tabele
+
+
+timew
+https://timewarrior.net/docs/
+
+timew start tag
+timew summary :id
+timew @2 move 10:02 :fill
+timew @3 split
+timew untag @4 @3 projectB
+timew tag @4 projectB1
+timew join @2 @1
+timew gaps
+timew track 10:00 - 11:00 tag
+timew start 90mins ago tag
+timew start 3pm tag
+timew stop 10mins ago
+timew summary :id
+timew modify end @2 14:23
+timew report totals.py :day
