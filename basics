@@ -240,7 +240,7 @@ umount ./motyka
 klucze ssh:
 wygeneruj:
 ssh-keygen -C komentarz
-ssh-keygen -t ed25519 -C "akowalski@mimsolutions" -f ~/.ssh/mimsolutions.id_ed25519
+ssh-keygen -t ed25519 -C "barbara.mroczek@mim.ai" -f ~/.ssh/mimsolutions.id_ed25519
 skopiuj:
 ssh-copy-id user@host  # dodaje do ~/.ssh/authorized_keys; opcjonalnie -n (dry run)
 potrzebuje prawidłowych uprawnień ~ oraz ~/.ssh
@@ -1155,6 +1155,8 @@ https://timewarrior.net/docs/
 timew start tag
 timew summary :id
 timew @2 move 10:02 :fill
+    :fill  # uzupełnij także przerwy przed i po
+    :adjust  # skróć pozostałe interwały tam, gdzie będą nachodzić
 timew @3 split
 timew untag @4 @3 projectB
 timew tag @4 projectB1
