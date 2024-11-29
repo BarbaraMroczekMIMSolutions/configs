@@ -645,6 +645,7 @@ lsof -i tcp:xyz
 
 przekaż porty:
 # stawia połączenie ssh, które jednocześnie nadpisuje localhost:9999 przez zdalny port 9999
+# -i .ssh/key_file  żeby użyć konkretnego klucza, zwłaszcza jeśli kluczy jest dużo
 ssh -L 16007:127.0.0.1:16007 -L 9999:127.0.0.1:9999 USER_NAME@SERVER_NAME
 
 autocomplete nie działa:
@@ -1018,6 +1019,14 @@ BASH:
 
 zamknij sesję nie zapisując historii komend: kill -9 $$
 source: https://stackoverflow.com/a/49360507
+
+nawigacja
+ctrl + a  # przejdź na początek
+ctrl + k  # kill line; usuń do końca linii
+ctrl + e  # end; przejdź na koniec
+ctrl + u  # usuń do początku linii
+ctrl + w  # usuń słowo przed kursorem (kawałek, jeśli kursor w środku)
+alt + d  # usuń słowo za kursorem (kawałek, jeśli w kursor w środku)
 
 zdefiniuj tablicę:
 a=("perwszy element" "drugi element" "ostatni element")
