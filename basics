@@ -639,6 +639,8 @@ jupyter notebook --notebook-dir /home/ --port=8888
 
 znalezienie tokena jupytera:
 jupyter server list (tylko z konta usera mim)
+bądź (jaka jest różnica? ale czasem tylko to działa)
+jupyter notebook list
 
 sprawdź, co zajmuje port xyz:
 lsof -i tcp:xyz
