@@ -1001,6 +1001,9 @@ lxqt-config
 # oraz lubuntu-upgrader (Apply Full Upgrade) dla managera upgradów
 
 Unfreeze console after ctrl+s: ctrl+q
+Bring the job to the foreground after ctrl+z:
+    jobs   # check background processes
+    fg %n  # n is the job number, e.g. 1
 
 dunst notification daemon:
 dunstctl <option>
