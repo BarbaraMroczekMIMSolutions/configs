@@ -3,7 +3,7 @@
 from pathlib import Path
 wd = Path('.')
 
-# iteracje
+## iteracje
 
 for file in wd.iterdir:
     pass
@@ -12,13 +12,13 @@ for file in wd.glob("*"):
 for file in wd.rglob("*"):
     pass
 
-# sprawdzenia
+## sprawdzenia
 
 wd.is_dir() == True
 wd.exists() == True
 wd.mkdir(parents=True, exist_ok=True)
 
-# części ścieżki
+## części ścieżki
 
 p = Path("/usr/bin/python3")
 p.parts == ('/', 'usr', 'bin', 'python3')
@@ -75,3 +75,17 @@ PYTHONPATH=. python3 my_script.py
 # ładnie wypisz config:
 from omegaconf import OmegaConf
 print(OmegaConf.to_yaml(cfg, resolve=True))
+
+
+# obliczenia dni roboczych
+## kiedy minie okres
+import pandas as pd
+holidays = ['2024-12-25', '2025-01-01']  # use GPT
+start_date = pd.Timestamp('2024-12-19')
+end_date = start_date + pd.offsets.CustomBusinessDay(n=10, holidays=holidays)
+print("Time limit ends on:", end_date.date())
+## ile dni w okresie
+custom_business_day = pd.offsets.CustomBusinessDay(holidays=holidays)
+business_days = pd.date_range(start=start_date, end=end_date, freq=custom_business_day)
+count = len(business_days)
+print("Number of business days:", count)

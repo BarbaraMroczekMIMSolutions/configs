@@ -505,6 +505,10 @@ source: https://stackoverflow.com/a/64005961
 sprawdzenie ustawień condy:
 conda config --show
 
+użycie condy w skrypcie bashowym:
+# to działa tylko jeśli skrypt jest odpalany ze środowiska base, inaczej źle szuka środowisk
+source $(conda info --base)/etc/profile.d/conda.sh
+
 POETRY:
 
 zwiększ liczbę komunikatów o błędzie (gdy instalacja zawisa):
@@ -541,6 +545,30 @@ import torch
 device = torch.device("cuda")
 x = torch.tensor(1.0).to(device=device)
 # sprawdź, czy pojawił się proces na właściwej karcie w nvidia-smi
+
+ipython
+utworzenie pliku konfiguracyjnego:
+    ipython profile create
+    # utworzy plik ~/.ipython/profile_default/ipython_config.py
+
+debug
+w notebooku:
+    %debug  # trzeba użyć q bo inaczej stracę focus jądra
+puść skrypt i wejdź w tryb debug przy błędzie:
+    python -m pdb my_script.py
+ustaw breakpoint:
+    import pdb; pdb.set_trace()
+post mortem w interaktywnej konsoli pythona:
+    import pdb; pdb.pm()
+komendy:
+    c(ont(inue)) – Continue execution
+    n(ext) – Step to the next line
+    s(tep) – Step into a function call
+    p var – Print the value of a variable
+    q(uit) – Exit and abort program
+    d(own) – move down in the stack trace
+    u(p) – move up in the stack trace
+    h(elp) – list available commands
 
 DOCKER:
 
@@ -824,6 +852,7 @@ zaznacz znaleziony fragment: gn
     można też wykonać operację, np. usunąć: dgn
 policz wystąpienia:
 :%s/pattern//gn
+wyszukaj linie niewykomentowane: /^[^#].\+$
 
 wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc 
     zakres: "%" - cały plik
@@ -836,6 +865,8 @@ wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc
     nowa linia:
         \n  # przy wyszukiwaniu
         \r  # przy wstawianiu
+    ostatnio podświetlana (przez *) wartość:
+        ctrl+r, /
 
 zmień zaznaczenie na małe litery: u
 zmień zaznaczenie na wielkie litery: U
@@ -892,8 +923,25 @@ przesuń zakładkę: :tabm[ove] <nr>
 przejdź do n-tej zakładki: <n> gt
 zamknij wszystkie zakładki poza aktualną: :tabo[nly]
 
+uzupełnienia w command-line:
+uzupełnij najdłuższy wspólny prefiks: ctrl+L
+wylistuj wszystkie możliwości: ctrl+D
+
 polecenie okna ctrl-w
     o (aktualny bufor ma być jedynym widocznym)
+    s (podziel okno i dodaj nowy widok na aktualny bufor)
+    v (jak s ale podział pionowo)
+    q (zamknij aktualne okno; może zamknąć vima)
+    c (zamknij okno; nie zamyka vima))
+    h/j/k/l (przejdź do sąsiedniego okna)
+    H/J/K/L (przesuń okno skrajnie w daną stronę)
+    T (przełóż aktualne okno na nową kartę)
+    w/W (następne/poprzednie okno)
+    t/b (pierwsze/ostatnie okno)
+    p (poprzednio aktywne okno)
+    r/R (przesuń wszystkie okna o jedno)
+    x (zamień okno z następnym)
+    = (wyrównaj okna)
 
 wypisz nazwę pliku: echo @%
 alternatywnie (prościej): ctrl + g
