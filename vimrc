@@ -18,18 +18,26 @@ set autoindent          " when opening new line, copy indentation from line abov
 set background=dark
 set t_Co=256
 
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
+
 " include pylint
 set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
 set errorformat=%f:%l:\ %m
 
-let g:black_use_virtualenv = 0  # use the system black instead of separate virtualenv one
+let g:black_use_virtualenv = 0  " use the system black instead of separate virtualenv one
 call plug#begin('~/.vim/plugged')
 Plug 'Konfekt/FastFold'
 Plug 'tmhedberg/SimpylFold'
 Plug 'psf/black'
 call plug#end()
 
-# run black on save
+" run black on save
 augroup black_on_save
   autocmd!
   autocmd BufWritePre *.py Black
