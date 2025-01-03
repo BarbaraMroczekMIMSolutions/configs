@@ -866,7 +866,14 @@ wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc
         \n  # przy wyszukiwaniu
         \r  # przy wstawianiu
     ostatnio podświetlana (przez *) wartość:
+        # pusty search też powinien działać
         ctrl+r, /
+    ignore case:
+        \c gdziekolwiek w 'search' ignoruje wielkie/małe znaki
+        \C gdziekolwiek w 'search' przywraca wymaganie wielkich/małych znaków
+
+wykonaj polecenie na liniach zawierających regex:
+:g/{pattern}/[cmd]
 
 zmień zaznaczenie na małe litery: u
 zmień zaznaczenie na wielkie litery: U
@@ -904,8 +911,8 @@ przelicz ponownie zagięcia: zx
     # tu jest jakiś patch https://github.com/tmhedberg/SimpylFold/issues/116
     :FastFoldUpdate!
 
-otwórz plik (dodaj do bufora): e <path/to/file>
-nowy bufor: new
+otwórz plik (dodaj do bufora): :e <path/to/file>
+nowy bufor: :new
 następny/poprzedni zbuforowany plik: :bn/:bp
 zamknij bieżący bufor: :bd
 szybki podgląd buforów: :ls
@@ -919,8 +926,8 @@ uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
 otwórz plik w nowej zakładce: :tabe[dit] <path_to_file>
 następna zakładka: Ctrl + PgDwn lub gt
 poprzednia zakładka: Ctr + PgUp lub gT
-przesuń zakładkę: :tabm[ove] <nr>
-przejdź do n-tej zakładki: <n> gt
+przesuń zakładkę: :tabm[ove] <nr>  # numer przerwy, licząc od zera
+przejdź do n-tej zakładki: <n> gt  # numer zakładki, licząc od 1
 zamknij wszystkie zakładki poza aktualną: :tabo[nly]
 
 uzupełnienia w command-line:
@@ -972,6 +979,7 @@ podczas tworzenia zaznaczenia:
     przejdź do drugiego końca zaznaczenia: o
 
 autocompletion: ctrl + n / ctrl + p
+    potem ctrl+x ctrl+n/p żeby dodawać kolejne słowa z wyszukania
 autocomplete file name: ctrl + x, ctrl + f
 indent current line forward, backwards: ctrl + t, ctrl + d
 
@@ -1003,6 +1011,16 @@ po odpowiednim zmodyfikowaniu .vimrc
 :cc # aktualny komentarz
 :cn # następny komentarz
 :cp # poprzedni komentarz
+
+grep i podglądanie wyników:
+    # jak zwykle, pusty search używa ostatniego wyszukania
+    :vimgrep /search/j **/*.py  # j powstrzymuje przed skokiem do pierwszego wyszukania
+    :copen  # wyświetla listę wyszukań (Quickfix List)
+    :cclose  # zamknij powższe okno
+    wewnątrz Quickfix List:
+        Enter: otwórz plik w aktualnym oknie
+        ctrl+w, Enter: otwórz plik w nowym oknie
+
 
 powtórz edycję: .
 
@@ -1147,7 +1165,7 @@ xrandr --output eDP --primary
 xrandr --output HDMI-A-0 --primary
 dołącz monitor po prawej:
 xrandr --output HDMI-A-0 --auto --right-of eDP                                   
-zmień kolejność okien:
+zmień kolejność ekranów:
 xrandr --output eDP --right-of HDMI-A-0
 odłącz monitor:
 xrandr --output HDMI-A-0 --off
