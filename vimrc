@@ -3,6 +3,7 @@ set background=dark
 set shiftwidth=4        " when indenting with '>', use 4 spaces width
 set tabstop=4           " show existing tab with 4 spaces width
 set expandtab           " On pressing tab, insert 4 spaces
+autocmd FileType go setlocal noexpandtab  " Disable expandtab for Go files
 
 set showcmd             " Show (partial) command in status line.
 set ignorecase          " Do case insensitive matching
