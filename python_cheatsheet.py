@@ -76,6 +76,15 @@ PYTHONPATH=. python3 my_script.py
 from omegaconf import OmegaConf
 print(OmegaConf.to_yaml(cfg, resolve=True))
 
+# dodanie własnego resolvera
+from omegaconf import OmegaConf
+# to może żyć gdziekolwiek, ale musi być zaimportowane przed użyciem @hydra.main
+OmegaConf.register_new_resolver("code_const", lambda x: globals()[x])  # to wrzuca stałe
+# przykład importu w skrypcie
+import lib.crawler  # noqa: F401  # for the resolver
+# tak wygląda użycie w configu
+positive_key_words: ${code_const:EXTENDED_POSITIVE_KWS}
+
 
 # obliczenia dni roboczych
 ## kiedy minie okres
