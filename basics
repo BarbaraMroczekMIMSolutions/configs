@@ -207,6 +207,9 @@ git diff --no-ext-diff
 używaj vima jako edytora:  # dodaje wpis w .gitconfig
     git config core.editor "vim"  # opcjonalnie --global
 
+zapisz użytkownika używanego przez http:  # dodaje wpis w .gitconfig
+    git config credential.https://gitlab.com.username barbara.mroczek@mim.ai
+
 zignoruj hooka:
 # przydaje się, jeśli hook wyjątkowo się wywala, a chcemy wykonać operację
 git push --no-verify ...
@@ -930,6 +933,20 @@ przesuń zakładkę: :tabm[ove] <nr>  # numer przerwy, licząc od zera
 przejdź do n-tej zakładki: <n> gt  # numer zakładki, licząc od 1
 zamknij wszystkie zakładki poza aktualną: :tabo[nly]
 
+nawigacja po folderach:
+otwórz podgląd folderu aktualnego pliku: :Explore (:Lexplore dla okna po lewej)
+<enter> - otwórz plik w katualnym oknie
+o - otwórz plik w nowym oknie (podzel poziomo)
+v - jak wyżej, podział pionowy
+t - w nowej zakładce
+p - otwórz podgląd (ctrl-w z żeby zamknąć)
+d - utwórz folder
+% - utwórz nowy plik w aktualnym folderze
+D - usuń plik/folder
+R - zmień nazwę pliku/folderu
+i - zmień układ
+s - zmień sortowanie (r - odwróć kolejność)
+
 uzupełnienia w command-line:
 uzupełnij najdłuższy wspólny prefiks: ctrl+L
 wylistuj wszystkie możliwości: ctrl+D
@@ -949,6 +966,7 @@ polecenie okna ctrl-w
     r/R (przesuń wszystkie okna o jedno)
     x (zamień okno z następnym)
     = (wyrównaj okna)
+    z (zamknij preview)
 
 wypisz nazwę pliku: echo @%
 alternatywnie (prościej): ctrl + g
@@ -1029,6 +1047,17 @@ powtórz komendę: @:  (za następnym razem wystarczy @@)
 wiele komend bez poprzedzania każdej ":": gQ
 (samo Q daje to samo bez uzupełniania i podglądu rezultatu)
 
+nagranie makro:
+    q<schowek>  # polecam q jako schowek na makra
+    # zawartość makro
+    q
+żeby użyć makro: @<schowek>
+to są te same schowki, w szczególności można je wklejać i edytować:
+    i ctrl+r ctrl+r <schowek>  # wklej rozwijając znaki specjalne
+    # potencjalne edycje
+    viW  # zaznacz zawartość makro
+    "<schowek_potencjalnie_inny>y
+
 nawigacja - do opisania:
 [[, ]], [m, ]m, {, }
 
@@ -1042,8 +1071,11 @@ nawigacja po helpie:
         brak: komenda w normal mode
         i_: komenda w trybie insert
         v_: komenda w trybie visual
+        c_: skrót podczas wprowadzania komendy
         :: komenda wykonywalna (np. :tabedit)
         help dla ustawienia: help 'paste'
+    wyświetl listę podpowiedzi: ctrl-d
+    przejdź po liście opcji: ctrl-tab
 
 ogarnianie pluginów:
 tu jest repo: https://github.com/junegunn/vim-plug
