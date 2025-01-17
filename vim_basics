@@ -1,0 +1,256 @@
+usuń (linię/słowo/resztę linii): d (dd/daw/D)
+skopiuj: y
+skopiuj zawartość vimowego schowka do schowka systemowego:
+    :call system('xclip -selection clipboard', @0)   
+wklej w trybie insert: ctrl+r, "
+wklej tak, żeby działało w "." dla powtórzeń (np. w "c" (change)):
+    ctr+r, ctrl+p, "
+wklej ze schowka 0: "0p
+wyświetl zawartość schowków:
+    :reg (lub :dis)
+tryb wizualnego zaznaczania: v
+zaznacz po wklejeniu wklejony tekst: v']
+wyłącz autoindent do wklejenia wielu linii ze schowka: :set paste
+po użyciu przywróć autoindent: :set nopaste
+
+wyjdź z trybu insert na jedno polecenie: ctrl+o
+zreidentuj: = (linię: podwójnie)
+
+wyszukaj: /
+wyszukaj słowo pod kursorem: *
+przestań podświetlać: :noh
+włącz podświetlenie wyszukania: :set hlsearch
+wyszukaj wybrane przez visual: yq/gvp
+    y - yank; q/ - otwórz okno edycji command-line'u; gv - ostatnie zaznaczenie; p - paste
+zaznacz znaleziony fragment: gn
+    można też wykonać operację, np. usunąć: dgn
+policz wystąpienia:
+:%s/pattern//gn
+wyszukaj linie niewykomentowane: /^[^#].\+$
+
+wyszukaj i zamień (wszystkie w zakresie, potwierdzaj): :%s/search/replace/gc 
+    zakres: "%" - cały plik
+            "3,10" - linie 3-10 włącznie
+            ".,$" - od linii z kursorem do końca pliku
+            "1,+1" - od początku do następnej linii za kursorem
+            "*" - ostatnio użyty visual; żeby wstawić aktywne zaznaczenie do zakresu - ":"
+    odwołanie do grup wychwytujących w regexie:
+        :s/this is \([a-z]*\) example\(.*$\)/\1d this is output\2/
+    nowa linia:
+        \n  # przy wyszukiwaniu
+        \r  # przy wstawianiu
+    ostatnio podświetlana (przez *) wartość:
+        # pusty search też powinien działać
+        ctrl+r, /
+    ignore case:
+        \c gdziekolwiek w 'search' ignoruje wielkie/małe znaki
+        \C gdziekolwiek w 'search' przywraca wymaganie wielkich/małych znaków
+
+wykonaj polecenie na liniach zawierających regex:
+:g/{pattern}/[cmd]
+
+zmień zaznaczenie na małe litery: u
+zmień zaznaczenie na wielkie litery: U
+
+przejdź do (definicji, n-tej linii): g (gd, n gg)
+wróć do poprzedniego miejsca: ctrl + o
+    następne: ctrl + i
+przejdź do wiersza y, kolumny x:
+yGx|
+:norm yGx|
+przejdź do pasującego nawiasu: %
+
+utwórz marker: ma  # a - nazwa markera
+idź do markera: `a  # a - nazwa markera
+idź do początku linii z markerem: 'a  # a - nazwa markera
+wylistuj markery: :marks
+usuń marker: :delm
+
+utwórz zagięcie (fold):
+    # możliwe w trybie :set foldmethod=manual
+    # niedostępne w trybie :set foldmethod=indent
+    zf  # F-old
+otwórz zagięcie: zo  # O-pen
+zamknij zagięcie: zc  # C-lose
+przełącz otwarcie i zamknięcie zagięcia: za
+otwórz jeden poziom zagięcia (wszystko): zr (zR)  # R-emove
+złóż jeden poziom zagięcia (wszystko): zm (zM)  # M-ore
+wyłącz (tymczasowo) zagięcia: zn
+włącz zagięcia z powrotem: zN
+przełącz włączenie/wyłączenie zagięć: zi
+usuń zagięcie (wszystkie głębokości): zd (zD)  # D-elete
+podgląd położenia zagięć:
+    :set foldcolumn=4  # szerokość panelu (default 0 chowa)
+przelicz ponownie zagięcia: zx
+    # tu jest jakiś patch https://github.com/tmhedberg/SimpylFold/issues/116
+    :FastFoldUpdate!
+
+otwórz plik (dodaj do bufora): :e <path/to/file>
+nowy bufor: :new
+następny/poprzedni zbuforowany plik: :bn/:bp
+zamknij bieżący bufor: :bd
+szybki podgląd buforów: :ls
+otwórz bufor: :tabnew +Nbuf  # where N is the buffer number
+    # przydatne przy zamknięciu taba z niezapisanymi zmianami
+przejdź do ostatniego otwartego bufora: Ctrl + ^
+
+uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
+    wszystkie pliki w folderze: vim -p $(ls .)
+    lub używając globa: vim -p *.py
+otwórz plik w nowej zakładce: :tabe[dit] <path_to_file>
+następna zakładka: Ctrl + PgDwn lub gt
+poprzednia zakładka: Ctr + PgUp lub gT
+przesuń zakładkę: :tabm[ove] <nr>  # numer przerwy, licząc od zera
+przejdź do n-tej zakładki: <n> gt  # numer zakładki, licząc od 1
+zamknij wszystkie zakładki poza aktualną: :tabo[nly]
+
+nawigacja po folderach:
+otwórz podgląd folderu aktualnego pliku: :Explore (:Lexplore dla okna po lewej)
+<enter> - otwórz plik w katualnym oknie
+o - otwórz plik w nowym oknie (podzel poziomo)
+v - jak wyżej, podział pionowy
+t - w nowej zakładce
+p - otwórz podgląd (ctrl-w z żeby zamknąć)
+d - utwórz folder
+% - utwórz nowy plik w aktualnym folderze
+D - usuń plik/folder
+R - zmień nazwę pliku/folderu
+i - zmień układ
+s - zmień sortowanie (r - odwróć kolejność)
+
+uzupełnienia w command-line:
+uzupełnij najdłuższy wspólny prefiks: ctrl+L
+wylistuj wszystkie możliwości: ctrl+D
+
+polecenie okna ctrl-w
+    o (aktualny bufor ma być jedynym widocznym)
+    s (podziel okno i dodaj nowy widok na aktualny bufor)
+    v (jak s ale podział pionowo)
+    q (zamknij aktualne okno; może zamknąć vima)
+    c (zamknij okno; nie zamyka vima))
+    h/j/k/l (przejdź do sąsiedniego okna)
+    H/J/K/L (przesuń okno skrajnie w daną stronę)
+    T (przełóż aktualne okno na nową kartę)
+    w/W (następne/poprzednie okno)
+    t/b (pierwsze/ostatnie okno)
+    p (poprzednio aktywne okno)
+    r/R (przesuń wszystkie okna o jedno)
+    x (zamień okno z następnym)
+    = (wyrównaj okna)
+    z (zamknij preview)
+
+wypisz nazwę pliku: echo @%
+alternatywnie (prościej): ctrl + g
+permanentnie (a właściwie to wyświetlaj status, domyślnie już tam nazwa jest; patrz: statusline)
+    :set laststatus=2
+skopiuj nazwę pliku do domyślnego schowka:
+    :let @"=@%
+
+wyczyść spacje na końcu linii:
+    :%s/\s\+$//e
+        :%s to run :substitute over the range %, which is the entire buffer.
+        \s to match all whitespace characters.
+        \+ to match 1 or more of them.
+        $ to anchor at the end of the line.
+        The e flag to not give an error if there is no match (i.e. the file is already without trailing whitespace).
+
+wykomentuj blok kodu:
+    ctrl + v (visiual block)
+    shift + i (insert on left side)
+    # (text to insert, it will be inserted visibly only on the first line)
+    esc (end inserting)
+Usuń komentarz: ctrl + v; x
+
+zaznacz blok wierszy: shift + v
+dodaj do końca paru wierszy: ctrl + v; $A
+podczas tworzenia zaznaczenia:
+    zaznacz do końca linii (także w bloku): $
+    przejdź do drugiego końca zaznaczenia: o
+
+autocompletion: ctrl + n / ctrl + p
+    potem ctrl+x ctrl+n/p żeby dodawać kolejne słowa z wyszukania
+autocomplete file name: ctrl + x, ctrl + f
+indent current line forward, backwards: ctrl + t, ctrl + d
+
+reload .vimrc: :so $MYVIMRC  # full command: source
+
+display cursor position: :set ruler
+
+ustaw język kolorowania składni (np. python):
+    :set ft=sql  # abbreviation of filetype
+utwórz nową grupę do kolorowania:
+    highlight MyNewColorGroup ctermfg=Brown ctermbg=White
+    lista kolorów dostępna tutaj: :h cterm-colors
+dodaj słowo do grupy:  # escape'owanie znaków do ogarnięcia
+    # tipy dotyczące znaków https://vi.stackexchange.com/a/21773
+    :call matchadd("MyNewColorGroup", '\<my_word_to_highlight\>')
+zmień ustawienia grupy:
+    :highlight [group] [key=value]
+wylistuj grupy:
+    :hi  # abbreviation of :highlight
+
+
+pokaż białe znaki: :set list
+schowaj: :set nolist
+pokazuj także spacje: :set lcs+=space:·
+
+użyj pylinta
+po odpowiednim zmodyfikowaniu .vimrc
+:make # odpala pylint
+:cc # aktualny komentarz
+:cn # następny komentarz
+:cp # poprzedni komentarz
+
+grep i podglądanie wyników:
+    # jak zwykle, pusty search używa ostatniego wyszukania
+    :vimgrep /search/j **/*.py  # j powstrzymuje przed skokiem do pierwszego wyszukania
+    :copen  # wyświetla listę wyszukań (Quickfix List)
+    :cclose  # zamknij powższe okno
+    wewnątrz Quickfix List:
+        Enter: otwórz plik w aktualnym oknie
+        ctrl+w, Enter: otwórz plik w nowym oknie
+
+
+powtórz edycję: .
+
+powtórz komendę: @:  (za następnym razem wystarczy @@)
+
+wiele komend bez poprzedzania każdej ":": gQ
+(samo Q daje to samo bez uzupełniania i podglądu rezultatu)
+
+nagranie makro:
+    q<schowek>  # polecam q jako schowek na makra
+    # zawartość makro
+    q
+żeby użyć makro: @<schowek>
+to są te same schowki, w szczególności można je wklejać i edytować:
+    i ctrl+r ctrl+r <schowek>  # wklej rozwijając znaki specjalne
+    # potencjalne edycje
+    viW  # zaznacz zawartość makro
+    "<schowek_potencjalnie_inny>y
+
+nawigacja - do opisania:
+[[, ]], [m, ]m, {, }
+
+podejrzyj wartość ustawienia: :set <option>?
+
+nawigacja po helpie:
+    przeskocz do tagu: ctrl-]
+    wróć po skoku: ctrl-o
+    help do poszczególnego skrótu (przykład): i_ctrl-w
+    dostępne prefiksy:
+        brak: komenda w normal mode
+        i_: komenda w trybie insert
+        v_: komenda w trybie visual
+        c_: skrót podczas wprowadzania komendy
+        :: komenda wykonywalna (np. :tabedit)
+        help dla ustawienia: help 'paste'
+    wyświetl listę podpowiedzi: ctrl-d
+    przejdź po liście opcji: ctrl-tab
+
+ogarnianie pluginów:
+tu jest repo: https://github.com/junegunn/vim-plug
+instalacja:
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+użycie jest opisane w '.vim/autoload/plug.vim'

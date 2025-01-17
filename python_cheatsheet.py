@@ -98,3 +98,38 @@ custom_business_day = pd.offsets.CustomBusinessDay(holidays=holidays)
 business_days = pd.date_range(start=start_date, end=end_date, freq=custom_business_day)
 count = len(business_days)
 print("Number of business days:", count)
+
+
+# autoreload w notatniku:
+%load_ext autoreload
+%autoreload 2
+
+
+# pandas wyświetlenie całej tabali:
+with (pd.option_context(
+    'display.max_rows', None,
+    'display.max_columns', None,
+    'display.max_colwidth', None,
+    'display.max_seq_items', None,
+)):
+    display(df)
+
+# pandas podejrzenie ustawień wyświetlania:
+pd.describe_option('display')
+
+# schowanie pandasowego SettingWithCopyWarning
+with pd.option_context('mode.chained_assignment','warn'):
+
+# schowanie warningów w notebooku:
+with warnings.catch_warnings(record=True) as caught_warnings:
+
+
+# Time profiler for python:
+from pyinstrument import Profiler
+from pyinstrument.renderers import HTMLRenderer
+profiler = Profiler()
+profiler.start()
+# slow code goes here
+profiler.stop()
+profiler_session = profiler.last_session
+HTMLRenderer().open_in_browser(profiler_session, output_filename="./profiler_output.html")

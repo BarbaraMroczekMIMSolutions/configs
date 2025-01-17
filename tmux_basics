@@ -1,0 +1,95 @@
+TMUX:
+
+odpal:
+tmux
+odłącz się:
+ctr+b, d
+podłącz się:
+tmux a (-t <nazwa_sesji>)
+
+Nowe okno:
+ctrl + b, c
+
+przejdź do n-tego okna:
+ctrl + b, <n>
+przejdź do następnego okna:
+ctrl + b, n
+przejdź do poprzenio używanego okna:
+ctrl + b, l
+wybierz okno z listy:
+ctrl + b, w
+
+scrolluj okno:
+ctrl + b, [
+
+zamknij aktualne okno:
+ctrl + b, x
+
+copy-paste między oknami:
+    tryb zaznaczania: ctrl + b, [
+    zacznij zaznaczać: ctrl + space
+    skopiuj: ctrl + w
+    wklej: ctrl + b, ]
+
+zmień nazwę okna:
+ctrl + b; ,
+zmień numer okna:
+ctrl + b; .
+
+help:
+ctrl + b, ?
+
+interactive command prompt:
+ctrl + b, :
+
+wyróżnij aktywne okno na statusie:
+set-window-option -g window-status-current-style bg=white
+
+odśwież stałą potrzebną do autoruzacji ssh (ściągnięcie repo gitowego):
+eval export $(tmux show-env | grep SSH_AUTH_SOCK)
+
+odłącz innego klienta od sesji:
+ctrl + b; shift + d (D)
+
+wylistuj sesje:
+tmux list-sessions  # tmux ls
+
+utwórz nową sesję:
+tmux new (-s <nazwa_sesji>)
+
+zapisz konsolę do pliku:
+ctrl + b, :
+capture-pane -S -  # zapisuje do schowka aktualną (-S) całą (-) sesję
+ctrl + b, :
+save-buffer /home/bmroczek/filename.txt  # x pełna ścieżka, bo inaczej wrzuci do home'a (?)
+
+zmień nazwę sesji:
+rename-session [-t current-name] [new-name]  # domyślnie dotyczy aktualnie (ostatnio) używanej
+ctrl + b, $
+
+przełącz sesję:
+ctrl + b, s
+
+przestaw pane do innego okna:
+ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
+<przejdź do targetu>
+ctrl + b, :join-pane
+
+wydziel pane do osobnego okna:
+ctrl + b, :break-pane
+ctr + b, !
+
+wydziel nowy pane:
+ctr + b, "  # podział w pionie
+ctr + b, %  # podział w poziomie
+
+przenieś okno do innej sesji:
+# wewnątrz docelowej sesji
+ctrl + b, :
+move-window -s <session_name>:<window_number>
+# można pominąć :<window_number>, zostanie wtedy przeniesione ostatnio otwarte
+# jeśli sesja jest bezimienna, to można się do niej odnieść jako $<numer_sesji>
+
+odłącz się od sesji, jeśli nie działa skrót:
+tmux detach
+

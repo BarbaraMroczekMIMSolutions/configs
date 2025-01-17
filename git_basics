@@ -1,0 +1,215 @@
+aktualny stan lokalnego repo:
+git status
+
+ściągnij stan aktualny repo z origin/master
+git fetch && git rebase origin/master
+
+przyjmij wersję pliku z bazy podczas rebase:
+git checkout --ours -- nazwa_pliku
+jeśli patch zrobi się pusty, to może zostać pominięty
+
+wypchij aktualną gałąź do analogicznej w źródle:
+git push -u origin $(basename $(git symbolic-ref HEAD))
+
+wypchnij tagi:
+git push --tags
+
+wyślij commit do review na gerricie:
+git push origin HEAD:refs/for/master
+
+dołącz zmiany do commita:
+git commit -a --amend
+git push origin HEAD:refs/for/master
+(zmiana commit message dotyczy całego commita)
+
+zmiana opisu ostatniego commita:
+git commit --amend -m "New and correct message"
+
+ręczne poprawianie ostatniego commita:
+git reset HEAD^
+<wyedytuj pliki>
+git add <files>
+git commit
+<przeklej komentarz i Id>
+git push
+git push origin HEAD:refs/for/master
+
+dodanie części zmian do commita:
+git add -p <file>
+interaktywnie: y-yes, n-no, s-split, K-previous, ?-help (more commands)
+
+popraw zamendowanie na osobny commit:
+git reset --soft HEAD@{1}
+git commit -C HEAD@{1}
+
+odnoszenie do poprzednich commitów:
+HEAD@{n} - gdzie wskazywał HEAD n zmian temu (checkoutów, commitów, merge'y, wszystkiego)
+    lista do przejrzenia w git reflog
+HEAD~n - n-ty przodek HEAD w liniowej historii
+    lista do podejrzenia w git log
+HEAD^n - n-ty rodzic aktualnego commita (przydatne przy merge'ach)
+Sprawdzienie, czy wybrano właściwy commit (wypisz info):
+    git show HEAD~5
+
+porównaj zmiany pliku:
+    index = staging area
+    working directory = files on disk
+    HEAD = aktualny stan repo
+index vs working directory: git diff ./filename
+HEAD vs working directory: git diff HEAD filename
+HEAD vs index: git diff --cached filename
+aktualna gałąź vs inna (pojedynczy plik): git diff other_branch -- file_path
+
+przejrzyj aktualne gałęzie:
+git branch
+
+utwórz gałąź i na nią zrzuć aktualny stan:
+git checkout -b new_branch_name
+
+zmień nazwę brancha:
+git branch -m <newname>
+git branch -m <oldname> <newname>
+
+porzuć zmiany pliku od ostatniego commita:
+git checkout filename
+
+skopiuj stan pliku z innej gałęzi (rewizji itp.):
+git checkout <git-revision> -- <file-to-checkout>
+
+usuń plik z repozytorium, ale zostaw na dysku jako nieśledzony:
+git rm --cached filename
+
+przestań uaktualniać lokalne zmiany pliku
+git update-index --assume-unchanged [path]
+
+obejrzyj ostatnie commity: 
+git log
+git log --follow -- <filename>
+git log --graph --all
+
+obejrzyj zmiany konkretnej linii:
+git log -L<start>,<stop>:<file_path>
+
+zapisz na boku:
+git stash [save/pop/drop/show/list]
+
+git reset HEAD file
+
+git diff HEAD^
+
+użyj gitowego diffa do dowolnych plików:
+git diff --no-index
+
+usuń nieśledzone pliki:
+git clean
+-n # dry run
+-i # interactive
+-f # force (yes, do it!)
+-d # directories
+-X # only ignored files
+
+przywróć stan wszystkiego z danego momentu:
+git reset --hard
+
+przejdź na bok, ściągnij świeżego mastera i przejdź na niego:
+git branch tmp && git checkout tmp && git branch -D master && git fetch && git checkout master && git branch -D tmp
+
+ściągnij repo i odtwórz je w folderze:
+git clone ssh://bmroczek@siekiera.mimuw.edu.pl:29418/nazwa_repo nazwa_folderu
+
+ustaw gałąź na śledzenie gałęzi innego repo:
+git remote add <name_for_repo_reference> <address_of_repo_to_track>
+git remote -v # to verify
+git fetch --all
+git branch (--all) # to see all possible branches
+git checkout --track <full_name_of_the_remote_branch> # sets up new branch of the same name as remote one, tracks the remote branch
+
+Przestań śledzić branch (usuwa tylko lokalne śledzenie, nie modyfikuje źródła):
+git branch -d -r origin/<remote branch name>
+
+Ustaw lokalną gałąź na śledzenie gałęzi z remote:
+# jeśli local_branch_name pominięte, to ustawia dla aktualnej
+git branch --set-upstream-to=origin/remote_branch_name local_branch_name
+
+Wywołaj garbage collector (np. po usunięciu gałęzi i/lub remote-tracking brancha):
+git reflog expire --expire-unreachable=all --all
+git gc --prune=all
+
+Uaktualnij listę zdalnych gałęzi:
+git fetch --prune
+
+przełącz repo z https na ssh:
+stwórz, zapisz klucze ssh
+git remote -v # potwierdź, że jest na https
+git remote set-url origin git@gitlab.com:... # ustaw adres z protokołem ssh
+git remote -v # potwierdź, że nastąpiła zmiana
+git fetch # sprawdź, że działa (za pierwszym razem zaakceptuj klucze)
+
+podstawowa diagnostyka połączenia po ssh:
+(warto też sprawdzić zawartość ~/.ssh/config)
+ssh -vT git@github.com
+# jeśli zły klucz jest podawany, to warto ustawić IdentityFile; jeśli to już jest na zdalnym, to warto tam skopiować klucz publiczny i go użyć, a w połączeniu na niego dodać:
+IdentitiesOnly yes
+ForwardAgent yes
+AddKeysToAgent yes
+
+w przypadku wielu kont na githubie można dodać klucz do gita:
+# source: https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use
+git config core.sshCommand "ssh -i ~/.ssh/github -F /dev/null"
+
+sprawdź naniesione zmiany podczas merge'a:
+git diff HEAD <file_name>
+
+sprawdź, z czym się merge'ujesz:
+git log MERGE_HEAD
+
+cofnij rebase:
+git checkout -b backup # na wszelki wypadek
+git reflog # znajdź stan sprzed rebase'u
+git checkout <branch_name>
+git reset --hard HEAD@{n} # wartość n podejrzana w reflogu
+git status # potwierdzenie, że wszystko poszło ok
+
+lokalny gitignore:
+wpisy w pliku .git/info/exclude
+
+lokalny gitattributes:
+wpisy w pliku .git/info/attributes
+
+używaj nbdime do porównywania notebooków:
+pip list | grep nbdime # sprawdź, że w środowisku jest mbdime
+nbdime config-git --enable --global
+	to dopisuje w pliku ~/.config/git/attributes:
+		*.ipynb diff=jupyternotebook
+		*.ipynb merge=jupyternotebook
+	oraz w ~/.gitconfig:
+		[diff "jupyternotebook"]
+        		command = git-nbdiffdriver diff # warto tutaj dodać --sources
+		[merge "jupyternotebook"]
+        		driver = git-nbmergedriver merge %O %A %B %L %P
+        		name = jupyter notebook merge driver
+		[difftool "nbdime"]
+        		cmd = git-nbdifftool diff \"$LOCAL\" \"$REMOTE\" \"$BASE\"
+		[difftool]
+        		prompt = false
+		[mergetool "nbdime"]
+        		cmd = git-nbmergetool merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+potwierdź, że działa:
+git config diff.jupyternotebook.command
+more info: https://nbdime.readthedocs.io/en/latest/vcs.html#git-integration
+
+użyj domyślnego diffa:
+# przydaje się, gdy chcemy puścić go raz, a customowe są skonfigurowane
+git diff --no-ext-diff
+
+używaj vima jako edytora:  # dodaje wpis w .gitconfig
+    git config core.editor "vim"  # opcjonalnie --global
+
+zapisz użytkownika używanego przez http:  # dodaje wpis w .gitconfig
+    git config credential.https://gitlab.com.username barbara.mroczek@mim.ai
+
+zignoruj hooka:
+# przydaje się, jeśli hook wyjątkowo się wywala, a chcemy wykonać operację
+git push --no-verify ...
+git commit --no-verify ...
+
