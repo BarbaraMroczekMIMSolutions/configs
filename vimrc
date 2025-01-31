@@ -1,3 +1,5 @@
+" to reload inplace  :source $MYVIMRC
+
 syntax on
 set background=dark
 set shiftwidth=4        " when indenting with '>', use 4 spaces width
@@ -14,6 +16,8 @@ set scrolloff=5         " keep at least 5 lines above/below
 
 set hlsearch            " highlight search results (:noh to temporarily supress)
 set autoindent          " when opening new line, copy indentation from line above
+
+set foldlevel=99        " don't fold anything when opening a file
 
 " magic to fix color scheme in tmux
 set background=dark
@@ -32,10 +36,13 @@ set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {sym
 set errorformat=%f:%l:\ %m
 
 let g:black_use_virtualenv = 0  " use the system black instead of separate virtualenv one
+let g:no_flake8_maps=1
+let g:flake8_cmd="poetry run flake8"
 call plug#begin('~/.vim/plugged')
 Plug 'Konfekt/FastFold'
 Plug 'tmhedberg/SimpylFold'
 Plug 'psf/black'
+Plug 'nvie/vim-flake8'
 call plug#end()
 
 " run black on save
@@ -43,3 +50,7 @@ augroup black_on_save
   autocmd!
   autocmd BufWritePre *.py Black
 augroup end
+
+let mapleader=" "
+nnoremap <leader>fl :call flake8#Flake8()<CR>
+nnoremap <leader>bl :Black<CR>

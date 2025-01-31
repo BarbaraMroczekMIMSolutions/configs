@@ -54,7 +54,15 @@ zmień zaznaczenie na wielkie litery: U
 
 przejdź do (definicji, n-tej linii): g (gd, n gg)
 wróć do poprzedniego miejsca: ctrl + o
-    następne: ctrl + i
+    następne (zawróć wracanie): ctrl + i
+przejdź do definicji (wymaga ctags, patrz ctags): ctr+]
+    wróć skąd był skok do tagu: ctrl-t
+    zawróć zawracanie: :tag
+    wróć do aktualengo tagu: :0tag
+    lista tagów: :tags
+    wylistuj wszytkie pasujące tagi i wybierz z nich: g]
+    skocz jeśli jest jedna definicja, inaczej wylistuj opcje do wyboru: g ctrl-]
+
 przejdź do wiersza y, kolumny x:
 yGx|
 :norm yGx|
@@ -94,15 +102,30 @@ otwórz bufor: :tabnew +Nbuf  # where N is the buffer number
     # przydatne przy zamknięciu taba z niezapisanymi zmianami
 przejdź do ostatniego otwartego bufora: Ctrl + ^
 
-uruchom vima z każdym plikiem w zakładce: vim -p first.txt second.txt
-    wszystkie pliki w folderze: vim -p $(ls .)
-    lub używając globa: vim -p *.py
+uruchom vima z  plikami:
+    vim -p first.txt second.txt  # każdy plik w zakładce
+    vim -p $(ls .)  # wszystkie pliki w folderze
+    vim -p *.py  # lub używając globa
+uruchom vima na plikach wyszukanych findem (tutaj odfiltrowanie części plików):
+    vim $(find lib scripts -name "*.py" ! -name "__init__.py" ! -path "*/__pycache__/*")
+
 otwórz plik w nowej zakładce: :tabe[dit] <path_to_file>
 następna zakładka: Ctrl + PgDwn lub gt
 poprzednia zakładka: Ctr + PgUp lub gT
 przesuń zakładkę: :tabm[ove] <nr>  # numer przerwy, licząc od zera
 przejdź do n-tej zakładki: <n> gt  # numer zakładki, licząc od 1
 zamknij wszystkie zakładki poza aktualną: :tabo[nly]
+otwórz wszystkie argumenty w zakładkach: :tab all
+wyświetl listę argumentów: :ar  # args
+nadpisz listę argumentów: :args *
+dodaj pliki do listy argumentów: :arga configs/**/*.yaml  # argadd
+to samo, ale z możliwościami finda:
+    :execute 'argadd' system('find configs -name "*.yaml" ! -path "*/exclude_dir/*"')
+otwórz terminal w nowej zakładce:
+    :tab ter  # terminal
+    ctrl-\ ctrl-n  # na zakładce terminala wejdź w tryb normal
+    # przydaje się, żeby np. przejść do innej zakładki
+    # działa też ctrl-w gt/gT
 
 nawigacja po folderach:
 otwórz podgląd folderu aktualnego pliku: :Explore (:Lexplore dla okna po lewej)
@@ -209,6 +232,8 @@ grep i podglądanie wyników:
     wewnątrz Quickfix List:
         Enter: otwórz plik w aktualnym oknie
         ctrl+w, Enter: otwórz plik w nowym oknie
+    :colder  # wróć do poprzedniej listy wyników
+    :cnewer  # wróć do następnej listy wyników
 
 
 powtórz edycję: .
@@ -254,3 +279,18 @@ instalacja:
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 użycie jest opisane w '.vim/autoload/plug.vim'
+    TLDR: dodanie pluginu w .vimrc; potem odświeżyć .vimrc i wywołać :PlugInstall
+
+ctags:
+instalacja generatorów:
+    sudo apt install universal-ctags
+    go install github.com/jstemmer/gotags@latest  # for go
+ręczne tworzenie pliku z tagami:
+    ctags -R --languages=Python .
+    gotags -R -f tags .
+Automatyczne zarządzanie tagami:
+    Plug 'ludovicchabant/vim-gutentags'
+    let g:gutentags_ctags_executable_python = 'ctags'
+    let g:gutentags_ctags_executable_go = 'gotags'
+    # uwzględnij tylko pythona
+        let g:gutentags_ctags_extra_args = ['--languages=Python']

@@ -337,24 +337,6 @@ utworzenie pliku konfiguracyjnego:
     ipython profile create
     # utworzy plik ~/.ipython/profile_default/ipython_config.py
 
-debug
-w notebooku:
-    %debug  # trzeba użyć q bo inaczej stracę focus jądra
-puść skrypt i wejdź w tryb debug przy błędzie:
-    python -m pdb my_script.py
-ustaw breakpoint:
-    import pdb; pdb.set_trace()
-post mortem w interaktywnej konsoli pythona:
-    import pdb; pdb.pm()
-komendy:
-    c(ont(inue)) – Continue execution
-    n(ext) – Step to the next line
-    s(tep) – Step into a function call
-    p var – Print the value of a variable
-    q(uit) – Exit and abort program
-    d(own) – move down in the stack trace
-    u(p) – move up in the stack trace
-    h(elp) – list available commands
 
 DOCKER:
 
@@ -552,6 +534,9 @@ ${x/find/replace}
 bashowe domyślne kolorowanie (ustaw zmienną według outputu; można wynik dopisać do ~/.bashrc):
 dircolors -b
 
+nadpisz TMOUT (odpowiada za automatyczne zamykanie shella) jeśli jest readonly:
+    env TMOUT="" /bin/bash --noprofile --norc
+
 cron:
 # główny plik konfiguracyjny to /etc/crontab
 # podstawowa instrukcja jest w komentarzach na początku
@@ -675,5 +660,6 @@ timew start 90mins ago tag
 timew start 3pm tag
 timew stop 10mins ago
 timew summary :id
+timew modify start @13 10:15
 timew modify end @2 14:23
 timew report totals.py :day

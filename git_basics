@@ -19,6 +19,8 @@ git push origin HEAD:refs/for/master
 
 dołącz zmiany do commita:
 git commit -a --amend
+    -a  # uwzględnij wszystkie pliki już śledzone; ten sam zakres co `git add -u`
+    --no-edit  # zostaw nazwę jak jest
 git push origin HEAD:refs/for/master
 (zmiana commit message dotyczy całego commita)
 

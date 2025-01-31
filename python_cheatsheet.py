@@ -69,6 +69,9 @@ print(OmegaConf.to_yaml(cfg))
 # zmień config podczas odpalenia skryptu:
 python my_script.py --config-name "new_name" --config-path "new_path"
 
+# zamiast uruchomienia skryptu pokaż config
+python my_script.py --cfg [job|hydra|all] --resolve
+
 # popraw ścieżki importów (toporne, ale działa):
 PYTHONPATH=. python3 my_script.py
 
@@ -84,6 +87,15 @@ OmegaConf.register_new_resolver("code_const", lambda x: globals()[x])  # to wrzu
 import lib.crawler  # noqa: F401  # for the resolver
 # tak wygląda użycie w configu
 positive_key_words: ${code_const:EXTENDED_POSITIVE_KWS}
+
+# wewnątrz configu
+defaults:  # everything that's not explicitly defined but still gets combined
+    - other/config/file  # to import another config
+    - override other/db: mysql  # change selection of variants
+    - _self_  # sets priority of this file (last = most important)
+debug: True  # contents of _self_
+db:  # adds or overwrites just these fields (configs will be merged)
+    host: backup
 
 
 # obliczenia dni roboczych
@@ -133,3 +145,27 @@ profiler.start()
 profiler.stop()
 profiler_session = profiler.last_session
 HTMLRenderer().open_in_browser(profiler_session, output_filename="./profiler_output.html")
+
+
+# debug
+w notebooku:
+    %debug  # trzeba użyć q  wychodząc, bo inaczej stracę focus jądra
+puść skrypt i wejdź w tryb debug przy błędzie:
+    python -m pdb my_script.py
+    # domyślnie zatrzymuje się przy rozpoczęciu wykonywania wejścia
+    # żeby zatrzymał się dopiero przy błędzie:
+    python -m pdb -c continue my_script.py
+ustaw breakpoint:
+    import pdb; pdb.set_trace()
+post mortem w interaktywnej konsoli pythona:
+    import pdb; pdb.pm()
+komendy:
+    c(ont(inue)) – Continue execution
+    n(ext) – Step to the next line
+    s(tep) – Step into a function call
+    p var – Print the value of a variable
+    q(uit) – Exit and abort program
+    d(own) – move down in the stack trace
+    u(p) – move up in the stack trace
+    h(elp) – list available commands
+

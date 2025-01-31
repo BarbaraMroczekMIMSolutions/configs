@@ -93,3 +93,8 @@ move-window -s <session_name>:<window_number>
 odłącz się od sesji, jeśli nie działa skrót:
 tmux detach
 
+ustaw domyślny folder:
+# podczas podłączania sesji (powinno być permanentne):
+tmux a -c /home/my/new/default/directory
+# bądź wewnątrz tmuxa
+:attach-session -t . -c '#{pane_current_path}'
