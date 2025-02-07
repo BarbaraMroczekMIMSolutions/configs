@@ -425,6 +425,9 @@ jsongrid
 pulse audio volume control:
 pavucontrol
 
+uruchom cisco anyconnect:
+gtk-launch com.cisco.secureclient.gui
+
 zaloguj się jako user:
 # "-" odpowiada za zmiany w środowisku (HOME, USER, LOGNAME etc.)
 su - user
@@ -662,4 +665,6 @@ timew stop 10mins ago
 timew summary :id
 timew modify start @13 10:15
 timew modify end @2 14:23
+timew modify end @4 2025-02-03T18:50
 timew report totals.py :day
+timew report totals.py 2025-02-03

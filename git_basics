@@ -24,6 +24,11 @@ git commit -a --amend
 git push origin HEAD:refs/for/master
 (zmiana commit message dotyczy całego commita)
 
+cofnięcie amend i dodanie zmian do osobnego commita (z zachowaniem oryginalnego commita)
+git reflog  # znajdź hash stanu, gdzie był oryginalny commit
+git reset --soft <hash commita, który jest ok>
+git commit -m "Commit mesage for previously amended changes"
+
 zmiana opisu ostatniego commita:
 git commit --amend -m "New and correct message"
 

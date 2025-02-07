@@ -97,6 +97,16 @@ debug: True  # contents of _self_
 db:  # adds or overwrites just these fields (configs will be merged)
     host: backup
 
+# wiele uruchomień (sweeper)
+# więcej o dostępnych funkcjach: https://hydra.cc/docs/advanced/override_grammar/extended/#sweeps
+# dodaj w głównym configu
+hydra:
+  mode: MULTIRUN
+  sweeper:
+    params:
+      model.params.n_clusters: range(3, 8)
+      data: glob(*,exclude=support)
+
 
 # obliczenia dni roboczych
 ## kiedy minie okres
