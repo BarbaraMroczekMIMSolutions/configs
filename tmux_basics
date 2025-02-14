@@ -72,6 +72,7 @@ ctrl + b, s
 
 przestaw pane do innego okna:
 ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
+    ctrl + b, shift + m (M) żeby odznaczyć
 <przejdź do targetu>
 ctrl + b, :join-pane
 
