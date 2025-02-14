@@ -12,6 +12,7 @@ tryb wizualnego zaznaczania: v
 zaznacz po wklejeniu wklejony tekst: v']
 wyłącz autoindent do wklejenia wielu linii ze schowka: :set paste
 po użyciu przywróć autoindent: :set nopaste
+rozwiń taby: :%retab
 
 wyjdź z trybu insert na jedno polecenie: ctrl+o
 zreidentuj: = (linię: podwójnie)
@@ -101,6 +102,8 @@ szybki podgląd buforów: :ls
 otwórz bufor: :tabnew +Nbuf  # where N is the buffer number
     # przydatne przy zamknięciu taba z niezapisanymi zmianami
 przejdź do ostatniego otwartego bufora: Ctrl + ^
+otwórz wiele plików do buforów używając globa: :n **/*.py
+    # :n to :args, nadpisuje listę args; żeby dopisać do niej użyj :arge
 
 uruchom vima z  plikami:
     vim -p first.txt second.txt  # każdy plik w zakładce
@@ -294,3 +297,12 @@ Automatyczne zarządzanie tagami:
     let g:gutentags_ctags_executable_go = 'gotags'
     # uwzględnij tylko pythona
         let g:gutentags_ctags_extra_args = ['--languages=Python']
+
+zrób diff aktualnego stanu pliku z wersją z gita (pewnie są do tego pluginy...):
+    :vert new  " okno na zawartość gita
+    :r show HEAD:#  " wczytaj wersję z gita do nowego okna
+    :diffthis
+    ctrl-w w
+    :diffthis
+    # żeby wyjść z diffa, mogę zamknąć okno z gitową wersją,
+    # najlepiej tak, żeby od razu usunąć bufor
