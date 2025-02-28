@@ -297,6 +297,16 @@ source $(conda info --base)/etc/profile.d/conda.sh
 
 POETRY:
 
+dodaj pakiet do pyproject.toml i zainstaluj w środowisku:
+poetry add pandas
+
+zainstaluj pakiety z poetry.lock:
+poetry install
+# domyślnie isntaluje też samą paczkę; żeby nie: --no-root
+
+w pełni dostosuj środowisko do poetry.lock (install + usuń pakiety spoza locka)
+poetry sync
+
 zwiększ liczbę komunikatów o błędzie (gdy instalacja zawisa):
 poetry install -vvv
 
@@ -311,6 +321,16 @@ poetry run isort . --check-only
 
 puść testy:
 poetry run pytest
+
+ustawienie miejsca instalacji:
+# dodaj w ~/.bashrc:
+export POETRY_CACHE_DIR=/u01/bmroczek/.poetry/cache
+export POETRY_DATA_DIR=/u01/bmroczek/.poetry/data
+export POETRY_CONFIG_DIR=/u01/bmroczek/.poetry/config
+
+poetry config --list  # potwierdź zmiany
+poetry config cache-dir /u01/bmroczek/.poetry/cache  # wymuś nowe ustawienia
+
 
 wersja cudy/pytorcha:
 # typ karty graficznej
@@ -549,6 +569,8 @@ grep CRON /var/log/syslog | tail
 
 sprawdź stan baterii:
 upower -i /org/freedesktop/UPower/devices/battery_BAT0
+# bądź zawartość plików w /sys/class/power_supply/BAT0
+# stąd bierze i3status
 
 update software:
 update-manager

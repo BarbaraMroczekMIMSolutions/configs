@@ -193,7 +193,12 @@ podczas tworzenia zaznaczenia:
     zaznacz do końca linii (także w bloku): $
     przejdź do drugiego końca zaznaczenia: o
 
-autocompletion: ctrl + n / ctrl + p
+edytuj w dowolnym miejscu ekranu (przydatne do tabelek):
+set virtualedit=all
+set virtualedit=  # reset back
+gr/gR  # replace keeping the alignment with whitespaces (one char/more)
+
+automatyczne uzupełnianie: ctrl + n / ctrl + p
     potem ctrl+x ctrl+n/p żeby dodawać kolejne słowa z wyszukania
 autocomplete file name: ctrl + x, ctrl + f
 indent current line forward, backwards: ctrl + t, ctrl + d
@@ -214,7 +219,6 @@ zmień ustawienia grupy:
     :highlight [group] [key=value]
 wylistuj grupy:
     :hi  # abbreviation of :highlight
-
 
 pokaż białe znaki: :set list
 schowaj: :set nolist
@@ -237,7 +241,6 @@ grep i podglądanie wyników:
         ctrl+w, Enter: otwórz plik w nowym oknie
     :colder  # wróć do poprzedniej listy wyników
     :cnewer  # wróć do następnej listy wyników
-
 
 powtórz edycję: .
 
@@ -306,3 +309,18 @@ zrób diff aktualnego stanu pliku z wersją z gita (pewnie są do tego pluginy..
     :diffthis
     # żeby wyjść z diffa, mogę zamknąć okno z gitową wersją,
     # najlepiej tak, żeby od razu usunąć bufor
+usuń diffowe oznaczenia z okna:
+    :diffoff  # ! dla wyczyszczenia w całej sesji?
+
+zapisz listę otwartych buforów:
+    :mksession! mysession.vim
+otwórz vima z zapisanymi buforami:
+    vim -S mysession.vim
+
+użyj vima w trybie readonly:
+vim -RM my_file
+# włącz taki tryb dla otwartych buforów w sesji:
+    :set readonly
+    :set nomodifiable
+# ustaw taki tryb dla nowych buforów:
+    :autocmd BufRead * setlocal readonly nomodifiable

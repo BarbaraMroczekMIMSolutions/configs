@@ -7,6 +7,9 @@ ctr+b, d
 podłącz się:
 tmux a (-t <nazwa_sesji>)
 
+help:
+ctrl + b, ?
+
 Nowe okno:
 ctrl + b, c
 
@@ -35,9 +38,6 @@ zmień nazwę okna:
 ctrl + b; ,
 zmień numer okna:
 ctrl + b; .
-
-help:
-ctrl + b, ?
 
 interactive command prompt:
 ctrl + b, :
@@ -70,6 +70,19 @@ ctrl + b, $
 przełącz sesję:
 ctrl + b, s
 
+wydziel nowy pane:
+ctr + b, "  # podział w pionie
+ctr + b, %  # podział w poziomie
+
+przejdź do następnego pane'a:
+ctrl + b, o
+
+zamień kolejność pane'ów:
+ctrl + b, {
+
+ctrl b, alt up/down    resize focused pane by 5
+ctrl b, ctrl up/down    resize focused pane by 1
+
 przestaw pane do innego okna:
 ctrl + b, m  # zaznacz konkretną pane (być może jedyną w oknie)
     ctrl + b, shift + m (M) żeby odznaczyć
@@ -79,10 +92,6 @@ ctrl + b, :join-pane
 wydziel pane do osobnego okna:
 ctrl + b, :break-pane
 ctr + b, !
-
-wydziel nowy pane:
-ctr + b, "  # podział w pionie
-ctr + b, %  # podział w poziomie
 
 przenieś okno do innej sesji:
 # wewnątrz docelowej sesji

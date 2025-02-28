@@ -89,8 +89,11 @@ import lib.crawler  # noqa: F401  # for the resolver
 positive_key_words: ${code_const:EXTENDED_POSITIVE_KWS}
 
 # wewnątrz configu
+
+# @package bond.james   # where to put the whole config
 defaults:  # everything that's not explicitly defined but still gets combined
     - other/config/file  # to import another config
+    - random_config@new_config.new_key  # to place it somewhere else
     - override other/db: mysql  # change selection of variants
     - _self_  # sets priority of this file (last = most important)
 debug: True  # contents of _self_
