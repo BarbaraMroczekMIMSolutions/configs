@@ -164,6 +164,9 @@ polecenie okna ctrl-w
     x (zamień okno z następnym)
     = (wyrównaj okna)
     z (zamknij preview)
+otwórz plik w nowym oknie powyżej:  :split file
+    :sview file  # otwórz jako podgląd bez edycji
+    :vsplit file  # podział pionowy
 
 wypisz nazwę pliku: echo @%
 alternatywnie (prościej): ctrl + g
@@ -179,6 +182,10 @@ wyczyść spacje na końcu linii:
         \+ to match 1 or more of them.
         $ to anchor at the end of the line.
         The e flag to not give an error if there is no match (i.e. the file is already without trailing whitespace).
+
+Wstaw łamanie lini w tekście:
+    gq<motion>  # formatuj linie objęte ruchem
+    gw<motion>  # (np gqip dla paragrafu) formatuj text objęty ruchem
 
 wykomentuj blok kodu:
     ctrl + v (visiual block)
@@ -303,7 +310,7 @@ Automatyczne zarządzanie tagami:
 
 zrób diff aktualnego stanu pliku z wersją z gita (pewnie są do tego pluginy...):
     :vert new  " okno na zawartość gita
-    :r show HEAD:#  " wczytaj wersję z gita do nowego okna
+    :r !git show HEAD:#  " wczytaj wersję z gita do nowego okna
     :diffthis
     ctrl-w w
     :diffthis
