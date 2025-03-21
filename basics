@@ -676,6 +676,7 @@ timew @2 move 10:02 :fill
     :fill  # uzupełnij także przerwy przed i po
     :adjust  # skróć pozostałe interwały tam, gdzie będą nachodzić
 timew @3 split
+timew delete @2
 timew untag @4 @3 projectB
 timew tag @4 projectB1
 timew join @2 @1
@@ -690,3 +691,5 @@ timew modify end @2 14:23
 timew modify end @4 2025-02-03T18:50
 timew report totals.py :day
 timew report totals.py 2025-02-03
+timew report totals.py friday
+timew report totals.py 18th  # watch out for 1st 2nd 3rd
