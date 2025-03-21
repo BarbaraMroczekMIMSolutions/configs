@@ -95,7 +95,7 @@ przelicz ponownie zagięcia: zx
     :FastFoldUpdate!
 
 otwórz plik (dodaj do bufora): :e <path/to/file>
-nowy bufor: :new
+nowy bufor: :enew  # :new otwiera nowe okno
 następny/poprzedni zbuforowany plik: :bn/:bp
 zamknij bieżący bufor: :bd
 szybki podgląd buforów: :ls
@@ -299,7 +299,7 @@ instalacja generatorów:
     sudo apt install universal-ctags
     go install github.com/jstemmer/gotags@latest  # for go
 ręczne tworzenie pliku z tagami:
-    ctags -R --languages=Python .
+    ctags -R --languages=Python --links=no .
     gotags -R -f tags .
 Automatyczne zarządzanie tagami:
     Plug 'ludovicchabant/vim-gutentags'
