@@ -572,6 +572,12 @@ upower -i /org/freedesktop/UPower/devices/battery_BAT0
 # bądź zawartość plików w /sys/class/power_supply/BAT0
 # stąd bierze i3status
 
+sprawdź czas ostatniego wyłączenia komputera:
+# list of system shutdown events
+last -x shutdown
+# ręczne przejrzenie logów
+cat /var/log/syslog | grep "shutting down"
+
 update software:
 update-manager
 

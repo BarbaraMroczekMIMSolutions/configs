@@ -54,3 +54,4 @@ augroup end
 let mapleader=" "
 nnoremap <leader>fl :call flake8#Flake8()<CR>
 nnoremap <leader>bl :Black<CR>
+nnoremap <leader>rw u"xyiw<C-r>yiw:%s/\V<C-r>x/<C-r>"/g<CR>

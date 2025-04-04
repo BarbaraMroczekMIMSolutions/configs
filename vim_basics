@@ -95,6 +95,7 @@ przelicz ponownie zagięcia: zx
     :FastFoldUpdate!
 
 otwórz plik (dodaj do bufora): :e <path/to/file>
+    :view <file>  # ustaw wszytywany bufor jako readonly
 nowy bufor: :enew  # :new otwiera nowe okno
 następny/poprzedni zbuforowany plik: :bn/:bp
 zamknij bieżący bufor: :bd
