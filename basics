@@ -14,12 +14,27 @@ ctrl+g
 wróć do nowszego:
 ctrl+s
 
+ustawienie taba jako cykliczne autocomplete:
+    ustawienia żyją w ~/.inputrc
+
+    $include /etc/inputrc
+    # Make Tab cycle between possible completions
+    # Cycle forward: Tab
+    # Cycle backward: Shift-Tab
+    TAB: menu-complete
+    "\e[Z": menu-complete-backward
+    # Make C-q display the list of possible completions
+    Control-q: complete
+    # Display the list of matches when no further completion is possible
+    set show-all-if-unmodified on
+
 zrestartuj network-menagera:
 sudo systemctl restart network-manager.service
 
 zamontuj pliki przez ssh do lokalnego folderu:
     nie działa z symlinkiem, trzeba podać adres źródła; działają aliasy ssh
 sshfs bmroczek@motyka.mimuw.edu.pl:/home/bmroczek ./motyka
+    # ~ się nie rozwija; można użyć aliasu z .ssh/config zamiast user@server
 odmontuj:
 umount ./motyka
 
@@ -253,6 +268,7 @@ tar -xf archive.tar.gz
 polskie znaki windowsowe:
 unzip (-q) -O cswindows1250 <file_name>
 
+
 CONDA:
 conda activate ENV_NAME
 conda env list
@@ -295,6 +311,13 @@ użycie condy w skrypcie bashowym:
 # to działa tylko jeśli skrypt jest odpalany ze środowiska base, inaczej źle szuka środowisk
 source $(conda info --base)/etc/profile.d/conda.sh
 
+sprawdź właściwą wagę środowisk (po uwzględnieniu hardlinków):
+	du -sh pkgs envs/*
+prześledź hardlink:
+	ls -i  # wyświetla numery inode
+	find . -inum NUM  # wyszukuje wszystkie pliki linkujące do inode=NUM
+
+
 POETRY:
 
 dodaj pakiet do pyproject.toml i zainstaluj w środowisku:
@@ -303,6 +326,12 @@ poetry add pandas
 zainstaluj pakiety z poetry.lock:
 poetry install
 # domyślnie isntaluje też samą paczkę; żeby nie: --no-root
+
+wyświetl wersję w poetry.lock:
+	poetry show  # opcjonalnie nazwa pakietu; -T tylko podane bezpośrednio (top-level)
+
+dopasowanie wersji paczki:
+    ^ zachowuje tylko pierwszą cyfrę
 
 w pełni dostosuj środowisko do poetry.lock (install + usuń pakiety spoza locka)
 poetry sync
@@ -330,6 +359,7 @@ export POETRY_CONFIG_DIR=/u01/bmroczek/.poetry/config
 
 poetry config --list  # potwierdź zmiany
 poetry config cache-dir /u01/bmroczek/.poetry/cache  # wymuś nowe ustawienia
+
 
 
 wersja cudy/pytorcha:
@@ -512,7 +542,7 @@ modyfikacja konkretnego powiadomienia:
 pkill dunst; dunst -print  # sprawdź szczegóły powiadomienia
 dopisz odpowiedni filtr w .config/dunst/dunstrc (źródło wzięte ze ścieżki z manuala)
 pkill dunst; dunst &  # odczep dunsta od konsoli
-dunstify "Test Notification" "This is a test message."  # sprawdź, czy reszta działą
+dunstify "Test Notification" "This is a test message."  # sprawdź, czy reszta działa
 
 sprawdzenie ustawień DNSów:
 sudo resolvectl status
@@ -655,18 +685,8 @@ wyciszyć (po lewej z przodu)
 
 
 TODO:
-POETRY:
-
-^ zachowuje tylko pierwszą cyfrę
-wyświetl wersję w poetry.lock:
-	poetry show  # opcjonalnie nazwa pakietu; -T tylko podane bezpośrednio (top-level)
 
 CONDA:
-sprawdź właściwą wagę środowisk (po uwzględnieniu hardlinków):
-	du -sh pkgs envs/*
-prześledź hardlink:
-	ls -i  # wyświetla numery inode
-	find . -inum NUM  # wyszukuje wszystkie pliki linkujące do inode=NUM
 
 psql:
 \c postgres  # połącz się z bazą postgres

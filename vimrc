@@ -1,6 +1,6 @@
 " to reload inplace  :source $MYVIMRC
 
-syntax on
+syntax on               " override settings with the defaults; use syntax enable to keep custom ones
 set background=dark
 set shiftwidth=4        " when indenting with '>', use 4 spaces width
 set tabstop=4           " show existing tab with 4 spaces width

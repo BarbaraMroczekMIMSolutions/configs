@@ -227,6 +227,15 @@ zmień ustawienia grupy:
     :highlight [group] [key=value]
 wylistuj grupy:
     :hi  # abbreviation of :highlight
+jeszcze raz:
+    syn case ignore  # case insensitive; przywróć poprzez `syn case match`
+    syntax match MyTodo /\<TODO\>/
+    highlight MyTodo ctermfg=White ctermbg=Red
+tak ogólnie:
+    syntax enable  # włącz kolorowanie
+    syntax on  # włącz domyślne kolorowanie, nadpisuje customowe
+    highlight  # wylistuj schematy kolorowia
+    syntax  # wylistuj elementy podpinane pod highlight
 
 pokaż białe znaki: :set list
 schowaj: :set nolist
