@@ -270,6 +270,7 @@ unzip (-q) -O cswindows1250 <file_name>
 
 
 CONDA:
+
 conda activate ENV_NAME
 conda env list
 conda create --name CLONE_NAME --clone ENV_NAME
@@ -316,6 +317,14 @@ sprawdź właściwą wagę środowisk (po uwzględnieniu hardlinków):
 prześledź hardlink:
 	ls -i  # wyświetla numery inode
 	find . -inum NUM  # wyszukuje wszystkie pliki linkujące do inode=NUM
+
+budowanie wheela:
+conda nadpisuje ścieżki systemowe do g++, ld i innych. Na razie jedynym rozwiązaniem jakie
+znalazłam, to ubicie całej kondy i praca na venvie. Dokładniej:
+1. wykomentować cały autosrat condy s ~/.bashrc
+2. uruchomić świeżą konsolę (powinna byc już bez kondy
+3. dopiero wtedy utworzyć środowiśko (venv my_new_venv)
+4. poinstalować potrzebne rzeczy, być może także narzędzia systemowe
 
 
 POETRY:
@@ -682,11 +691,6 @@ wyciszenie sali konferencyjnej:
 pilot z czerwonym trójkątem
 wyciszyć (po lewej z przodu)
 
-
-
-TODO:
-
-CONDA:
 
 psql:
 \c postgres  # połącz się z bazą postgres

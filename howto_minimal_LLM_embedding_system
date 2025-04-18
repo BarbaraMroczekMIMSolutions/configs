@@ -1,0 +1,39 @@
+Zabijamy wszystkie ślady condy:
+w ~/.bashrc wykomentowujemy całą sekcję dodaną przez condę
+# >>> conda initialize >>>
+# . /home/bmroczek/anaconda3/etc/profile.d/conda.sh
+# <<< conda initialize <<<
+
+w świeżej konsoli można stworzyć środowisko
+python3 -m venv ~/mistral_env
+source ~/mistral_env/bin/activate
+
+instalacja narzędzi systemowych do zbudowania wheela:
+sudo apt update
+sudo apt install build-essential cmake python3-dev libopenblas-dev libomp-dev
+
+instalacja samego pakietu (i zależności wcześniej):
+pip install --upgrade pip setuptools wheel
+pip install --upgrade packaging
+pip install llama-cpp-python
+
+ściągnięcie modelu:
+wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf
+
+przykładowe użycie:
+
+from llama_cpp import Llama
+
+# Ścieżka do modelu
+model_path = "mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+
+# Inicjalizacja modelu z embeddingami
+llm = Llama(
+    model_path=model_path,
+    embedding=True,
+    n_ctx=2048  # możesz zmniejszyć jeśli masz mało RAM
+)
+
+# Test embeddingu
+embedding = llm.embed("This is a test sentence.")
+print(embedding[:10])  # wypisz tylko kawałek, bo to długi wektor
