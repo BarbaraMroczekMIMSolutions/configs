@@ -237,6 +237,21 @@ tak ogólnie:
     highlight  # wylistuj schematy kolorowia
     syntax  # wylistuj elementy podpinane pod highlight
 
+kolorowanie dla plików todo (wymaga przetestowania):
+~/.vim/ftdetect/mytodo.vim
+    " Match files starting with todo_ followed by a date
+    au BufNewFile,BufRead todo_\d\{4}_\d\{2}_\d\{2} set filetype=mytodo
+~/.vim/syntax/mytodo.vim
+    " Example syntax highlighting for todo files
+    syntax keyword MyTodoKeyword TODO FIXME NOTE
+    syntax match MyTodoDate /\d\{4}-\d\{2}-\d\{2}/
+    syntax match MyImportant /^!\s.*/
+
+    highlight link MyTodoKeyword Keyword
+    highlight link MyTodoDate Constant
+    highlight link MyImportant Error
+
+
 pokaż białe znaki: :set list
 schowaj: :set nolist
 pokazuj także spacje: :set lcs+=space:·
