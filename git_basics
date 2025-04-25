@@ -9,7 +9,7 @@ git checkout --ours -- nazwa_pliku
 jeśli patch zrobi się pusty, to może zostać pominięty
 
 wypchij aktualną gałąź do analogicznej w źródle:
-git push -u origin $(basename $(git symbolic-ref HEAD))
+git push -u origin $(git symbolic-ref --short HEAD)
 
 wypchnij tagi:
 git push --tags

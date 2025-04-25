@@ -55,3 +55,13 @@ let mapleader=" "
 nnoremap <leader>fl :call flake8#Flake8()<CR>
 nnoremap <leader>bl :Black<CR>
 nnoremap <leader>rw u"xyiw<C-r>yiw:%s/\V<C-r>x/<C-r>"/g<CR>
+
+cabbrev q call ConfirmQuit()
+function! ConfirmQuit()
+    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
+        echohl WarningMsg | echo "More than one buffer open. Use :bd to close one." | echohl None
+    else
+        execute "quit"
+    endif
+endfunction
+

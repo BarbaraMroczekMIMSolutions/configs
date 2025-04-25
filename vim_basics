@@ -13,6 +13,7 @@ zaznacz po wklejeniu wklejony tekst: v']
 wyłącz autoindent do wklejenia wielu linii ze schowka: :set paste
 po użyciu przywróć autoindent: :set nopaste
 rozwiń taby: :%retab
+odśwież ekran: redraw!
 
 wyjdź z trybu insert na jedno polecenie: ctrl+o
 zreidentuj: = (linię: podwójnie)
@@ -348,6 +349,8 @@ zapisz listę otwartych buforów:
     :mksession! mysession.vim
 otwórz vima z zapisanymi buforami:
     vim -S mysession.vim
+w już otwartym vimie:
+    :source ~/.vim/session.vim
 
 użyj vima w trybie readonly:
 vim -RM my_file

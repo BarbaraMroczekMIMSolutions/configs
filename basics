@@ -277,6 +277,20 @@ conda create --name CLONE_NAME --clone ENV_NAME
 conda create --name ENV_NAME python=3.9
 conda env remove -n ENV_NAME
 
+init condy zainstalowanej systemowo:
+# znajdź condę (jakoś: zapytaj, zgrepuj, zgadnij)
+# u mnie: /opt/anaconda/anaconda3/etc/profile.d/conda.sh
+# tymczasowo dodaj do wykonywalnych
+source /opt/anaconda/anaconda3/etc/profile.d/conda.sh
+conda init bash
+# teraz .bashrc powinno mieć na końcu coś w stylu
+# >>> conda initialize >>>
+__conda_setup="$('/opt/anaconda/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+eval "$__conda_setup"
+unset __conda_setup
+# <<< conda initialize <<<
+
+
 dodanie do środowiska condowego zmiennych środowiskowych:
 conda activate <my_env>
 conda env config vars set ENV_VAR_NAME=env_var_value
@@ -295,7 +309,7 @@ conda env list
 (uwaga: użytkownik jupyter-bmroczek nie powinien instalować niczego w tych środowiskach, bo i tak nie działa, ale twierdzi, że działa?) – chyba brakowało uprawnień, dlatego był read-only
 w takim przypadku `pip install` zainstaluje pakiety np. w '/home/$USER/.local/lib/python3.9/site-packages/pandas' (do sprawdzenia w pandas.__path__)
 
-isntalacja w środowisku, do którego dostęp wymaga sudo (każde na użytkowniku tljh):
+instalacja w środowisku, do którego dostęp wymaga sudo (każde na użytkowniku tljh):
 # źródło: Instalacja kulfona w polkomtel
 conda activate <środowisko usera tljh>  # wystarczy być swoim zwykłym użytkownikiem
 sudo -E env PATH=${PATH} pip install <paczka>  # przekazanie zmiennych środowiskowych i zmiennej PATH, której -E nie obejmuje
