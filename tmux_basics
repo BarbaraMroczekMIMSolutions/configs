@@ -45,7 +45,7 @@ ctrl + b, :
 wyróżnij aktywne okno na statusie:
 set-window-option -g window-status-current-style bg=white
 
-odśwież stałą potrzebną do autoruzacji ssh (ściągnięcie repo gitowego):
+odśwież stałą potrzebną do autoryzacji ssh (ściągnięcie repo gitowego):
 eval export $(tmux show-env | grep SSH_AUTH_SOCK)
 
 odłącz innego klienta od sesji:

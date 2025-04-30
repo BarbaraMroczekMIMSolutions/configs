@@ -5,7 +5,7 @@ wd = Path('.')
 
 ## iteracje
 
-for file in wd.iterdir:
+for file in wd.iterdir():
     pass
 for file in wd.glob("*"):
     pass

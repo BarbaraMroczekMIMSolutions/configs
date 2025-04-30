@@ -1,8 +1,12 @@
+# run ipython profile create to create the default file
+# it's located at ~/.ipython/profile_default/ipython_config.py
+
 # used options only
 
 ## lines of code to run at IPython startup.
 #  Default: []
 import datetime
+
 log_file = f"notebooks/{datetime.datetime.now().strftime('%Y-%m-%d')}-log.py"
 c.InteractiveShellApp.exec_lines = [
     "%load_ext autoreload",
@@ -21,5 +25,4 @@ c.TerminalInteractiveShell.autoformatter
 
 ## Set the color scheme (NoColor, Neutral, Linux, or LightBG).
 #  See also: InteractiveShell.colors
-c.TerminalInteractiveShell.colors = 'Linux'
-
+c.TerminalInteractiveShell.colors = "Linux"

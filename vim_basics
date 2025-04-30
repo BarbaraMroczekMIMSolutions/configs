@@ -241,16 +241,19 @@ tak ogólnie:
 kolorowanie dla plików todo (wymaga przetestowania):
 ~/.vim/ftdetect/mytodo.vim
     " Match files starting with todo_ followed by a date
-    au BufNewFile,BufRead todo_\d\{4}_\d\{2}_\d\{2} set filetype=mytodo
+    " au BufNewFile,BufRead todo_\d\{4}_\d\{2}_\d\{2} set filetype=mytodo
+    " doesn't work, {n} gives me troubles
+    au BufNewFile,BufRead todo_[0-9_]* set filetype=mytodo
 ~/.vim/syntax/mytodo.vim
-    " Example syntax highlighting for todo files
-    syntax keyword MyTodoKeyword TODO FIXME NOTE
-    syntax match MyTodoDate /\d\{4}-\d\{2}-\d\{2}/
-    syntax match MyImportant /^!\s.*/
+    " Define custom colors for TODO, DONE, and NOTE with default text color
+    highlight MyTodoTODO ctermfg=7 ctermbg=88
+    highlight MyTodoDONE ctermfg=7 ctermbg=22
+    highlight MyTodoNOTE ctermfg=7 ctermbg=18
 
-    highlight link MyTodoKeyword Keyword
-    highlight link MyTodoDate Constant
-    highlight link MyImportant Error
+    " Match lines that may start with spaces, and highlight starting from TODO / DONE / NOTE
+    syntax match MyTodoTODO /^\s*\zsTODO.*$/
+    syntax match MyTodoDONE /^\s*\zsDONE.*$/
+    syntax match MyTodoNOTE /^\s*\zsNOTE.*$/
 
 
 pokaż białe znaki: :set list
