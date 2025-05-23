@@ -159,6 +159,10 @@ ssh -vT git@github.com
 IdentitiesOnly yes
 ForwardAgent yes
 AddKeysToAgent yes
+sprawdzenie, jakie klucze są przekazane:
+ssh-add -L  # wypisze klucze publiczne, działa na remote oraz local
+# jeśli nie ma tam tych kluczy, których potrzeba:
+ssh-add /path/to//key
 
 w przypadku wielu kont na githubie można dodać klucz do gita:
 # source: https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use

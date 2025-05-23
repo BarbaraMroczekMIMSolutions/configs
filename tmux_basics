@@ -61,7 +61,7 @@ zapisz konsolę do pliku:
 ctrl + b, :
 capture-pane -S -  # zapisuje do schowka aktualną (-S) całą (-) sesję
 ctrl + b, :
-save-buffer /home/bmroczek/filename.txt  # x pełna ścieżka, bo inaczej wrzuci do home'a (?)
+save-buffer /home/bmroczek/filename.txt  # pełna ścieżka, bo inaczej wrzuci do home'a (?)
 
 zmień nazwę sesji:
 rename-session [-t current-name] [new-name]  # domyślnie dotyczy aktualnie (ostatnio) używanej
