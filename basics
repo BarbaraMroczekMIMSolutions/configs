@@ -737,3 +737,10 @@ timew report totals.py :day
 timew report totals.py 2025-02-03
 timew report totals.py friday
 timew report totals.py 18th  # watch out for 1st 2nd 3rd
+
+
+do testowania kawałków skryptu:
+import sys, os
+hidden_folder_path = os.path.abspath(".timewarrior")
+sys.path.insert(0, hidden_folder_path)
+from extensions._timew_utils import ClockifyPrinter
