@@ -557,7 +557,21 @@ Bring the job to the foreground after ctrl+z:
     jobs   # check background processes
     fg %n  # n is the job number, e.g. 1
 
-dunst notification daemon:
+DUNST NOTIFICATION DAEMON:
+
+# skróty są zdefiniowane w pliku konfiguracyjnym
+# zgodnie z manualem: ~/.config/dunst/dunstrc
+
+# Close notification
+close = ctrl+space
+# Close all notifications
+close_all = ctrl+shift+space
+# Redisplay last message(s)
+history = ctrl+grave
+# Context menu
+context = ctrl+shift+period
+
+klient konsolowy:
 dunstctl <option>
 dunstctl context  # pozwala na podjęcie akcji
 
@@ -566,6 +580,7 @@ pkill dunst; dunst -print  # sprawdź szczegóły powiadomienia
 dopisz odpowiedni filtr w .config/dunst/dunstrc (źródło wzięte ze ścieżki z manuala)
 pkill dunst; dunst &  # odczep dunsta od konsoli
 dunstify "Test Notification" "This is a test message."  # sprawdź, czy reszta działa
+
 
 sprawdzenie ustawień DNSów:
 sudo resolvectl status
@@ -737,7 +752,7 @@ timew report totals.py :day
 timew report totals.py 2025-02-03
 timew report totals.py friday
 timew report totals.py 18th  # watch out for 1st 2nd 3rd
-
+timew clockify.py 4th for 2d  # only way I found for custom day ranges for my scripts
 
 do testowania kawałków skryptu:
 import sys, os

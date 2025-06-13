@@ -27,6 +27,10 @@ p.parents ==  # TODO
 p.parents[1] == Path("/usr")
 p.root == "/"
 
+p.name
+p.suffix
+p.stem
+
 import shutil
 shutil.copyfile(src, dst)
 
@@ -109,6 +113,13 @@ hydra:
     params:
       model.params.n_clusters: range(3, 8)
       data: glob(*,exclude=support)
+
+# odwołanie do configów (bądź grup) spoza głównego katalogu configu:
+# więcej info: https://hydra.cc/docs/advanced/search_path/
+# jeśli nasz config jest gdzieś głębiej, a chcemy się odwoływać do grup w głównym folderze
+hydra:
+  searchpath:
+    - file://configs/  # ścieżka względem working directory
 
 
 # obliczenia dni roboczych

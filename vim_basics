@@ -12,7 +12,7 @@ tryb wizualnego zaznaczania: v
 zaznacz po wklejeniu wklejony tekst: v']
 wyłącz autoindent do wklejenia wielu linii ze schowka: :set paste
 po użyciu przywróć autoindent: :set nopaste
-rozwiń taby: :%retab
+rozwiń taby: :%retab  # wymaga :set nopaste
 odśwież ekran: redraw!
 
 wyjdź z trybu insert na jedno polecenie: ctrl+o
@@ -254,6 +254,13 @@ kolorowanie dla plików todo (wymaga przetestowania):
     syntax match MyTodoTODO /^\s*\zsTODO.*$/
     syntax match MyTodoDONE /^\s*\zsDONE.*$/
     syntax match MyTodoNOTE /^\s*\zsNOTE.*$/
+
+Na szybko podświetl jakieś słowo:
+:match Search /my term for highlighting/  # Search to nazwa grupy kolorawnia
+wyłącz podświetlenie:
+:match lub :match none
+Są też dostępne :2match i :3match, żeby można było działać na paru jednocześnie.
+Dalej już trzeba używać matchadd.
 
 
 pokaż białe znaki: :set list
